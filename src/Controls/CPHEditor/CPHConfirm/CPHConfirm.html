@@ -1,0 +1,12 @@
+<div class="modal">
+  <div class="description">
+    {{= feather.icons[this.icon].toSvg() }}
+    <span>
+      {{= CPHHelpers.safeHTML(this.message) }}
+    </span>
+  </div>
+  <div class="input">
+    <button class="btn" name="cancel">Cancel</button>
+    <button class="btn" name="submit">OK</button>
+  </div>
+</div>

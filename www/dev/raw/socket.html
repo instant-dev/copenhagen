@@ -1,0 +1,43 @@
+<html>
+  <head>
+    <title>CPH Playground: Raw</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../compile/?filename=style.css">
+    <script src="../../compile/?filename=script.js"></script>
+    <script src="../../main.js"></script>
+    <style>
+      .textedit {
+        display: flex;
+        height: 100%;
+        width: 100%;
+      }
+      .textedit .editor-files {
+        position: relative;
+        width: 200px;
+      }
+      .textedit .editor-text {
+        height: 100%;
+        flex-grow: 1;
+      }
+    </style>
+    <script>
+      window.addEventListener('DOMContentLoaded', function () {
+        var editor = window.editors[0];
+        editor.treeView.open(document.querySelector('.editor-files'));
+        editor.fileTabs.open(document.querySelector('.editor-tabs'));
+        editor.connectToFileServer('http://localhost:7331', {project: 'hello/world', filename: 'hello.js'});
+      });
+    </script>
+  </head>
+  <body>
+    <div class="textedit">
+      <div class="editor-files">
+      </div>
+      <div class="editor-text">
+        <div class="editor-tabs"></div>
+        <div class="editor" data-language="javascript" data-rows="30">
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

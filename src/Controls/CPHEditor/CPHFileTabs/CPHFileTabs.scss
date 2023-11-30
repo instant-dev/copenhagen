@@ -1,0 +1,228 @@
+control[control="CPHFileTabs"] {
+
+  display: flex;
+  color: $grey-x-dark;
+
+  * {
+    box-sizing: border-box;
+    user-select: none;
+  }
+
+  & > div.file-tabs {
+
+    & > div.files {
+
+      float: left;
+      overflow-x: hidden;
+      overflow-y: auto;
+      white-space: nowrap;
+      position: relative;
+      padding: $half-unit 1px;
+      padding-bottom: 1px;
+      margin-bottom: -1px;
+
+      &:empty {
+        padding: 0px;
+      }
+
+      & > div {
+        margin-bottom: -1px;
+      }
+
+      & > .separator {
+        float: left;
+        position: relative;
+        overflow: visible;
+        z-index: 1;
+        pointer-events: none;
+        border-radius: 1000px;
+        width: 1px;
+        background-color: $grey-main;
+        height: ($size-medium + 2px) - $size-small;
+        margin-left: -1px;
+        margin-top: $size-x-small;
+        &:first-child, &:last-child {
+          display: none;
+        }
+        &.highlighted {
+          display: block;
+          z-index: 4;
+          background-color: $blue-main;
+          width: 4px;
+          margin-right: -4px;
+          &:last-child {
+            margin-left: -4px;
+            margin-right: 0px;
+          }
+        }
+      }
+
+    }
+
+  }
+}
+
+control[control="CPHFileTabs"] div.file,
+div.file.file-tabs-dragging {
+  box-sizing: border-box;
+  user-select: none;
+  font-family: -apple-system, Arial;
+  font-size: 12px;
+  position: relative;
+  display: flex;
+  float: left;
+  align-items: center;
+  cursor: pointer;
+  line-height: $size-medium + 2px;
+  height: $size-medium + 2px;
+  padding: 0px $size-small;
+  color: $grey-dark;
+  border: 1px solid transparent;
+  border-radius: $base-radius;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  z-index: 0;
+  background-color: $grey-x-light;
+  transition: background-color 0.1s ease-in-out;
+  &.new-file {
+    padding: 0px ($size-x-small + 1px);
+    & > svg {
+      width: $size-small;
+      height: $size-small;
+      stroke-width: 3;
+    }
+  }
+  &:hover {
+    background-color: $grey-xx-light;
+    color: $grey-x-dark;
+    border-color: $color-darken-tertiary;
+    border-bottom-color: transparent;
+    z-index: 2;
+  }
+  &[data-selected] {
+    background-color: $white;
+    color: $grey-xx-dark;
+    border-color: $color-darken-tertiary;
+    border-bottom-color: transparent;
+    z-index: 3;
+  }
+  &:hover, &[data-selected] {
+    margin-left: -1px;
+    margin-right: -1px;
+    &:before, &:after {
+      display: block;
+      width: 1px;
+      content: '';
+    }
+  }
+  span.user {
+    margin: (-$half-unit) 0px;
+    margin-left: $half-unit;
+    width: $size-small;
+    height: $size-small;
+    color: $editor-caret-color;
+    background-color: $white;
+    border-radius: 1000px;
+    display: inline-block;
+    position: relative;
+    &.self {
+      z-index: 1;
+    }
+    &:after {
+      display: block;
+      position: absolute;
+      content: '';
+      bottom: -3px;
+      right: -3px;
+      width: 6px;
+      height: 6px;
+      border-radius: 1000px;
+      background-color: currentColor;
+      border: 2px solid $white;
+    }
+    & > img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 1000px;
+      object-fit: cover;
+    }
+    & + span.user {
+      margin-left: -$half-unit * (3 / 2);
+    }
+  }
+  span.close {
+    position: relative;
+    display: inline-block;
+    margin-left: $half-unit;
+    margin-right: -$size-x-small;
+    width: $size-small;
+    height: $size-small;
+    border-radius: $base-radius;
+    background-color: rgba(255, 255, 255, 0);
+    transition: background-color 0.1s ease-in-out,
+      transform 0.1s ease-in-out;
+    &:before, &:after {
+      display: block;
+      position: absolute;
+      content: '';
+      background-color: $grey-main;
+      width: $size-x-small + $half-unit;
+      height: $half-unit / 2;
+      top: $size-x-small - ($half-unit / 4);
+      left: $half-unit / 2;
+      transform: rotate(45deg);
+      transition: background-color 0.1s ease-in-out;
+    }
+    &:after {
+      transform: rotate(-45deg);
+    }
+    &:hover {
+      background-color: $grey-light;
+      &:before, &:after {
+        background-color: $grey-dark;
+      }
+    }
+  }
+  span.loading {
+    position: relative;
+    display: none;
+    margin-left: $size-x-small;
+    margin-right: -$size-x-small;
+    width: $size-small;
+    height: $size-small;
+    color: $blue-main;
+    animation: cph-loading-spin 1.5s ease-in-out infinite;
+    & > svg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+  }
+  &[data-loading] {
+    span.close {
+      display: none;
+    }
+    span.loading {
+      display: inline-block;
+    }
+  }
+  &.modified {
+    color: $orange-dark;
+    span.close {
+      background-color: $orange-dark;
+      border-radius: 1000px;
+      transform: scale(0.4);
+      &:before, &:after {
+        background-color: rgba($white, 0);
+      }
+      &:hover {
+        transform: scale(1.0);
+        border-radius: $base-radius;
+        &:before, &:after {
+          background-color: rgba($white, 1);
+        }
+      }
+    }
+  }
+}

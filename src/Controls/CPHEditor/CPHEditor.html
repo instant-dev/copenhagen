@@ -1,0 +1,99 @@
+<div class="editor">
+  <control control="CPHFindReplace" name="find-replace"></control>
+  <div class="read-only">
+    read only <span data-language></span>
+  </div>
+  <div class="line-container">
+    <div class="line-numbers"></div>
+  </div>
+  <div class="edit-text">
+    <div class="scrollbar vertical"><div class="scroller"></div></div>
+    <div class="scrollbar horizontal"><div class="scroller"></div></div>
+    <div class="annotations"></div>
+    <textarea
+      spellcheck="false"
+      autocomplete="off"
+      autocorrect="off"
+      autocapitalize="none"
+      wrap="off"
+      inputmode="text"
+      tabIndex="-1"></textarea>
+    <div class="render"></div>
+    <div class="render sample"><div class="line"><span class="fill">x</span></div></div>
+    <div class="render limit"><span class="fill">{{= 'W'.repeat(80) }}</span></div>
+  </div>
+</div>
+<div class="empty">
+  Please select a file.
+</div>
+<div class="loading">
+  Loading...
+</div>
+<div class="file">
+  <img>
+  <iframe></iframe>
+  <audio></audio>
+  <div class="unsupported">
+    This file type is not supported.
+  </div>
+</div>
+<div class="system-messages">
+  <div class="system-error">
+    Some errors
+  </div>
+  <div class="system-reconnect">
+  </div>
+</div>
+<div class="preview" data-preview>
+  <div class="expand">
+    {{= feather.icons['maximize-2'].toSvg({class: 'maximize'}) }}
+    {{= feather.icons['minimize-2'].toSvg({class: 'minimize'}) }}
+  </div>
+  <div class="preview-summary" data-markdown-preview>
+    <iframe
+      sandbox="allow-popups allow-popups-to-escape-sandbox allow-scripts allow-same-origin"
+      ></iframe>
+  </div>
+</div>
+<div class="mobile-menu">
+  <div class="menu-row">
+    <button class="main pad" name="cph-keypress" data-key="tab">tab</button>
+    <div class="scrollable">
+      <button name="cph-keypress">(</button>
+      <button name="cph-keypress">{</button>
+      <button name="cph-keypress">[</button>
+      <button name="cph-keypress">`</button>
+      <button name="cph-keypress">$</button>
+      <button name="cph-keypress">'</button>
+      <button name="cph-keypress" data-key="quotation-mark">&quot;</button>
+      <button name="cph-keypress">!</button>
+      <button name="cph-keypress">?</button>
+      <button name="cph-keypress">|</button>
+      <button name="cph-keypress">&</button>
+      <button name="cph-keypress">=</button>
+      <button name="cph-keypress">:</button>
+      <button name="cph-keypress" data-key="<">&lt;</button>
+      <button name="cph-keypress" data-key=">">&gt;</button>
+      <button name="cph-keypress">/</button>
+      <button name="cph-keypress">*</button>
+      <button name="cph-keypress">%</button>
+      <button name="cph-keypress">\</button>
+      <button name="cph-keypress">+</button>
+      <button name="cph-keypress">-</button>
+      <button name="cph-keypress">_</button>
+      <button name="cph-keypress">)</button>
+      <button name="cph-keypress">}</button>
+      <button name="cph-keypress">]</button>
+      <button name="cph-keypress">^</button>
+      <button name="cph-keypress">~</button>
+      <button name="cph-keypress">#</button>
+      <button name="cph-keypress">@</button>
+      <button class="pad" name="cph-keypress" data-key="untab">untab</button>
+      <button class="pad" name="cph-keypress" data-key="comment">//</button>
+      <button class="pad" name="cph-undo">{{= feather.icons['rotate-ccw'].toSvg() }}&nbsp;undo</button>
+      <button class="pad" name="cph-redo">{{= feather.icons['rotate-cw'].toSvg() }}&nbsp;redo</button>
+    </div>
+    <button class="main" name="cph-keypress" data-key="arrowleft">{{= feather.icons['arrow-left'].toSvg() }}</button>
+    <button class="main" name="cph-keypress" data-key="arrowright">{{= feather.icons['arrow-right'].toSvg() }}</button>
+  </div>
+</div>

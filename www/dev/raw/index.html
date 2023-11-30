@@ -1,0 +1,70 @@
+<html>
+  <head>
+    <title>CPH Playground: Raw</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../compile/?filename=style.css">
+    <script src="../../compile/?filename=script.js"></script>
+    <script src="../../main.js"></script>
+    <script>
+      window.addEventListener('DOMContentLoaded', function () {
+        // // Set custom code. Files saved as _sample*.txt won't be checked into VC.
+        // // fetch('./_sample2.txt')
+        // //   .then(function (response) { return response.text(); })
+        // //   .then(function (text) { window.editors[0].setValue(text.replace(/\n/gi, '\r\n')); });
+        // window.editors[0].setAnnotations([
+        //   [1, {text: 'Some line goes here'}],
+        //   [2, {text: 'Some other line goes here'}],
+        //   [5, {text: 'some other line', url: 'https://hello.com/'}],
+        //   [7, {image: 'https://content.public.files.stdlib.com/shared/static/branding/autocode-logo.svg', text: 'link to a thing', url: 'https://hello.com/'}]
+        // ]);
+        // // window.editors[0].setReadOnly(true);
+        // run custom code here...
+        var editor = window.editors[0];
+        var userA = editor.addUser({username: 'hacubu'});
+        editor.executeUserAction(userA, 'Select', 16, 20);
+        editor.executeUserAction(userA, 'CreateCursor');
+        editor.executeUserAction(userA, 'Select', 26, 30);
+        var userB = editor.addUser({username: 'threesided'});
+        editor.executeUserAction(userB, 'Select', 163, 274);
+        setTimeout(function () {
+          editor.setError(10, 4);
+        }, 100);
+        function write (msgA, msgB, msgC) {
+          if (msgA.length || msgB.length || msgC.length) {
+            setTimeout(function () {
+              editor.executeUserAction(userA, 'InsertText', [msgA.shift(), msgB.shift()]);
+              editor.executeUserAction(userB, 'InsertText', msgC.shift());
+              write(msgA, msgB, msgC);
+            }, 50);
+          }
+        }
+        setTimeout(function () {
+          write(
+            'Hello, Clarice -- '.split(''),
+            'wonderful day, isn\'t it?'.split(''),
+            'PITBULL MR. WORLDWIDE'.split('')
+          );
+        }, 2000);
+        editor.connectToMultiplayerServer('localhost:1337');
+      });
+    </script>
+  </head>
+  <body>
+    <div class="editor" data-language="javascript">
+      // Welcome!
+
+      // This page uses the raw Copenhagen source compiled from
+      // the `src` directory. It's recommend you use this as your primary
+      // test playground.
+
+      // If you're modifying the internals of Copenhagen,
+      // you can modify them in `src` and play with the result here.
+
+      // We recommend using Autocode command line tools for local development,
+      // located at: https://github.com/stdlib/lib
+
+      // Once configured, you can run `lib http` and access this page at:
+      // http://localhost:3434/dev/raw/
+    </div>
+  </body>
+</html>

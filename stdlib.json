@@ -1,0 +1,10 @@
+{
+  "name": "copenhagen",
+  "version": "2021.9.23",
+  "timeout": 10000,
+  "build": "functionscript",
+  "local": {
+    "port": 3434,
+    "route": "/"
+  }
+}

@@ -1,0 +1,9 @@
+node_modules
+env.json
+.DS_Store
+_sample*.txt
+.env
+.*.env
+.*.deployconfig
+multiplayer/backups/
+package-lock.json

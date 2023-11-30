@@ -1,0 +1,16 @@
+{
+  "name": "copenhagen",
+  "description": "",
+  "author": "keith <keith@polybit.com>",
+  "main": "functions/__main__.js",
+  "scripts": {
+    "start": "node --inspect multiplayer/server.js",
+    "multiplayer": "nodemon multiplayer/server.js",
+    "dummy": "nodemon multiplayer/dummy_server.js"
+  },
+  "dependencies": {},
+  "publish": false,
+  "devDependencies": {
+    "nodemon": "2.0.13"
+  }
+}

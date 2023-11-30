@@ -1,0 +1,18 @@
+<div class="modal">
+  <div class="description">
+    {{= feather.icons[this.icon].toSvg() }}
+    <span>
+      {{= CPHHelpers.safeHTML(this.description) }}
+    </span>
+  </div>
+  <div class="input">
+    <input
+      name="input-text"
+      type="text"
+      autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+      placeholder="{{= CPHHelpers.safeHTML(this.placeholder) }}"
+      value="{{= CPHHelpers.safeHTML(this.value) }}">
+    <button class="btn" name="submit">{{= CPHHelpers.safeHTML(this.confirmText) }}</button>
+  </div>
+  <div class="error"></div>
+</div>

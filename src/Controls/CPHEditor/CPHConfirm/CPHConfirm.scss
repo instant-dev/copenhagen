@@ -1,0 +1,137 @@
+control[control="CPHConfirm"] {
+
+  font-family: -apple-system, Arial;
+
+  * {
+    box-sizing: border-box;
+  }
+
+  position: absolute;
+  display: flex;
+  font-size: 12px;
+  z-index: 99;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  background-color: $color-darken-primary;
+  align-items: center;
+  justify-content: center;
+
+  div.modal {
+    padding: $half-unit;
+    background-color: $grey-xx-light;
+    border-radius: $base-radius;
+    box-shadow: $strong-shadow;
+    border: 1px solid $color-darken-primary;
+    width: 480px;
+    max-width: calc(100% - #{$size-medium});
+
+    &.animate-no {
+      animation: ce-animate-no 0.1s linear infinite;
+    }
+
+    div.description {
+      display: flex;
+      align-items: flex-start;
+      padding: $size-x-small;
+      margin-bottom: $size-x-small;
+      line-height: 1.5em;
+      font-size: 14px;
+      word-wrap: break-word;
+      overflow: hidden;
+      & > svg {
+        width: $size-small;
+        height: $size-small;
+        margin-top: $half-unit;
+        margin-right: $half-unit;
+        flex-shrink: 0;
+      }
+      & > span {
+        margin-left: $size-x-small;
+        overflow: hidden;
+      }
+    }
+
+    div.input {
+      display: flex;
+      padding: $half-unit;
+      justify-content: flex-end;
+      button.btn {
+        font-size: inherit;
+        flex-shrink: 0;
+        background-color: transparent;
+        color: $grey-dark;
+        height: $size-medium;
+        padding: 0px ($size-x-small - 1px);
+        border: 1px solid transparent;
+        border-radius: $base-radius;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: $base-shadow;
+        cursor: pointer;
+        user-select: none;
+        outline: none;
+        min-width: $size-large * 1.5;
+        &[name="submit"] {
+          background-color: $blue-main;
+          color: $white;
+          &:hover {
+            color: $white;
+          }
+        }
+        &:not(:first-child) {
+          margin-left: $half-unit;
+        }
+        & > svg {
+          color: currentColor;
+          width: $size-small;
+          height: $size-small;
+        }
+        & > span {
+          padding: 0px $half-unit;
+        }
+        &:hover {
+          transform: translateY(-1px);
+          box-shadow: $strong-shadow;
+          color: $grey-xx-dark;
+          border-color: $color-darken-primary;
+        }
+        &:active {
+          box-shadow: inset $base-shadow;
+          transform: translateY(0px);
+        }
+        &.on {
+          background-color: $blue-main;
+          color: $white;
+          box-shadow: inset $base-shadow;
+          transform: translateY(0px);
+        }
+        &:focus {
+          outline-offset: 1px;
+          outline: 1px solid $blue-main;
+        }
+        &[disabled] {
+          cursor: default;
+          transform: translateY(0px) !important;
+          border-color: transparent !important;
+          background-color: transparent !important;
+          color: $grey-main !important;
+          box-shadow: none;
+        }
+      }
+    }
+
+    div.error {
+      display: none;
+      padding: 0px $half-unit;
+      color: $red-main;
+      &[data-error] {
+        display: flex;
+      }
+    }
+
+  }
+
+}

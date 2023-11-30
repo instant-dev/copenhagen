@@ -1,0 +1,7 @@
+.env
+.staging.env
+.prod.env
+.deployconfig
+.staging.deployconfig
+.prod.deployconfig
+multiplayer/
