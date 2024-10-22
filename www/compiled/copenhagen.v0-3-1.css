@@ -1,0 +1,1653 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;600&display=swap");
+@font-face {
+  font-family: 'Monospace1';
+  src: local("Menlo");
+  font-weight: 500 !important; }
+
+@font-face {
+  font-family: 'Monospace2';
+  src: local("Monaco");
+  font-weight: 500 !important; }
+
+@font-face {
+  font-family: 'Monospace3';
+  src: local("Consolas");
+  font-weight: 500 !important; }
+
+@keyframes cph-loading-spin {
+  0% {
+    transform: rotate(0deg);
+    opacity: 1.0; }
+  50% {
+    transform: rotate(180deg);
+    opacity: 0.5; }
+  100% {
+    transform: rotate(360deg);
+    opacity: 1.0; } }
+
+.hljs,
+.hljs-tag,
+.hljs-subst {
+  color: #3556E3; }
+
+.hljs-strong,
+.hljs-emphasis {
+  color: #FF9E29; }
+
+.hljs-bullet,
+.hljs-quote,
+.hljs-regexp,
+.hljs-link,
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-name {
+  color: #b11fff; }
+
+.hljs-literal,
+.hljs-number {
+  color: #F06800; }
+
+.hljs-code,
+.hljs-section,
+.hljs-selector-class,
+.hljs-string,
+.hljs-html {
+  color: #1C9B40; }
+
+.hljs-title {
+  color: #3556E3; }
+
+.hljs-strong {
+  font-weight: bold; }
+
+.hljs-emphasis {
+  font-style: italic; }
+
+.hljs-symbol,
+.hljs-attribute {
+  color: #AE2AF4; }
+
+.hljs-params,
+.hljs-class .hljs-title {
+  color: #AAAAAA; }
+
+.hljs-type,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-selector-id,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-addition,
+.hljs-variable,
+.hljs-template-variable {
+  color: #E01E1E; }
+
+.hljs-comment,
+.hljs-deletion,
+.hljs-meta {
+  color: #ceb18d; }
+
+.hljs-space {
+  opacity: 0.2; }
+
+[control="CPHEditor"] {
+  text-align: left;
+  font-family: -apple-system, Arial;
+  font-size: 13px;
+  position: relative;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  flex-grow: 1;
+  display: block; }
+  [control="CPHEditor"] * {
+    box-sizing: border-box; }
+
+@keyframes ce-animate-no {
+  0% {
+    transform: translateX(0px); }
+  25% {
+    transform: translateX(-5px); }
+  50% {
+    transform: translateX(0px); }
+  75% {
+    transform: translateX(5px); }
+  100% {
+    transform: translateX(0px); } }
+
+@keyframes ce-caret-animation {
+  0% {
+    opacity: 1.0; }
+  50% {
+    opacity: 1.0; }
+  51% {
+    opacity: 0.0; }
+  100% {
+    opacity: 0.0; } }
+  [control="CPHEditor"].animate-no {
+    animation: ce-animate-no 0.1s linear infinite; }
+  [control="CPHEditor"].focus:not(.readonly) {
+    border-color: #3556E3; }
+  [control="CPHEditor"]:not(.focus) .editor .line-numbers .number.selected:not(.error), [control="CPHEditor"].disabled .editor .line-numbers .number.selected:not(.error) {
+    background-color: transparent; }
+  [control="CPHEditor"]:not(.focus) .editor .edit-text div.render div.line div.selection span.border:not(.other-user), [control="CPHEditor"].disabled .editor .edit-text div.render div.line div.selection span.border:not(.other-user) {
+    margin: 0px -1px;
+    padding: 0px 1px;
+    border-radius: 4px; }
+    [control="CPHEditor"]:not(.focus) .editor .edit-text div.render div.line div.selection span.border:not(.other-user) .focus, [control="CPHEditor"]:not(.focus) .editor .edit-text div.render div.line div.selection span.border:not(.other-user):before, [control="CPHEditor"]:not(.focus) .editor .edit-text div.render div.line div.selection span.border:not(.other-user):after, [control="CPHEditor"]:not(.focus) .editor .edit-text div.render div.line div.selection span.border:not(.other-user).length-0, [control="CPHEditor"].disabled .editor .edit-text div.render div.line div.selection span.border:not(.other-user) .focus, [control="CPHEditor"].disabled .editor .edit-text div.render div.line div.selection span.border:not(.other-user):before, [control="CPHEditor"].disabled .editor .edit-text div.render div.line div.selection span.border:not(.other-user):after, [control="CPHEditor"].disabled .editor .edit-text div.render div.line div.selection span.border:not(.other-user).length-0 {
+      display: none; }
+  [control="CPHEditor"]:not(.focus) .editor .edit-text div.render div.line div.line-selection.highlight:not(.error), [control="CPHEditor"].disabled .editor .edit-text div.render div.line div.line-selection.highlight:not(.error) {
+    background-color: transparent; }
+  [control="CPHEditor"].disabled * {
+    user-select: none;
+    pointer-events: none; }
+  [control="CPHEditor"].disabled .editor .line-numbers {
+    background-color: #F8F8F8; }
+  [control="CPHEditor"].disabled .editor {
+    background-color: #F8F8F8;
+    filter: grayscale(50%); }
+  [control="CPHEditor"].readonly .read-only {
+    display: flex; }
+  [control="CPHEditor"].nolines .editor .line-container {
+    display: none; }
+  [control="CPHEditor"] .read-only {
+    pointer-events: none;
+    font-family: 'Source Code Pro', Monospace1, Monospace2, Monospace3, monospace;
+    font-variant-ligatures: none !important;
+    font-weight: 400;
+    display: none;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    margin: 7px;
+    margin-right: 23px;
+    font-size: 13px;
+    line-height: 1em;
+    padding: 4px;
+    z-index: 1;
+    background-color: #666666;
+    border-radius: 4px;
+    color: #FFFFFF; }
+    [control="CPHEditor"] .read-only [data-language] {
+      display: none; }
+  [control="CPHEditor"][data-maximized] {
+    position: absolute;
+    margin: 0px;
+    width: 100%;
+    height: 100%;
+    border-radius: 0px;
+    border: none;
+    box-shadow: none; }
+    [control="CPHEditor"][data-maximized] > .editor, [control="CPHEditor"][data-maximized] > .file, [control="CPHEditor"][data-maximized] > .empty {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 0px; }
+  [control="CPHEditor"].is-mobile .editor textarea {
+    caret-color: #5070d0 !important;
+    opacity: 1; }
+  [control="CPHEditor"].debug .editor textarea {
+    opacity: 1;
+    color: rgba(224, 30, 30, 0.5);
+    caret-color: #E01E1E; }
+    [control="CPHEditor"].debug .editor textarea::selection {
+      background-color: rgba(255, 170, 153, 0.5); }
+  [control="CPHEditor"] .editor {
+    overflow: hidden;
+    transform: translate3d(0px, 0px, 0px);
+    display: flex;
+    position: relative;
+    background-color: #FFFFFF;
+    border-radius: 4px; }
+    [control="CPHEditor"] .editor .line-container {
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px;
+      position: relative;
+      width: 48px;
+      flex-shrink: 0;
+      flex-grow: 0;
+      overflow: hidden; }
+      [control="CPHEditor"] .editor .line-container.scrolled-x {
+        box-shadow: 4px 0px 8px rgba(0, 0, 0, 0.1); }
+      [control="CPHEditor"] .editor .line-container .line-numbers {
+        position: absolute;
+        left: 0px;
+        z-index: 20;
+        flex-shrink: 0;
+        width: 100%;
+        height: calc(100% + 20px);
+        font-size: 13px;
+        transform: translate3d(0px, 0px, 0px);
+        font-family: 'Source Code Pro', Monospace1, Monospace2, Monospace3, monospace;
+        font-variant-ligatures: none !important;
+        font-weight: 400; }
+        [control="CPHEditor"] .editor .line-container .line-numbers div.number {
+          position: absolute;
+          display: block;
+          padding-right: 16px;
+          width: 100%;
+          text-align: right;
+          color: #DDDDDD;
+          margin-top: 7px;
+          transform: translate3d(0px, 0px, 0px);
+          height: 20px;
+          line-height: 20px; }
+          [control="CPHEditor"] .editor .line-container .line-numbers div.number.selected {
+            color: #666666; }
+          [control="CPHEditor"] .editor .line-container .line-numbers div.number.error {
+            color: #E01E1E; }
+    [control="CPHEditor"] .editor .edit-text {
+      flex-grow: 1;
+      overflow: hidden;
+      transform: translate3d(0px, 0px, 0px);
+      display: inline-flex;
+      position: relative; }
+      [control="CPHEditor"] .editor .edit-text .scrollbar {
+        position: absolute;
+        z-index: 10; }
+        [control="CPHEditor"] .editor .edit-text .scrollbar.vertical {
+          top: 1px;
+          bottom: 1px;
+          right: 0px;
+          overflow: visible; }
+          [control="CPHEditor"] .editor .edit-text .scrollbar.vertical .scroller {
+            margin-right: 1px;
+            width: 16px;
+            top: 0px;
+            right: 0px;
+            height: 0px; }
+            [control="CPHEditor"] .editor .edit-text .scrollbar.vertical .scroller:before {
+              top: 0px;
+              height: 100%;
+              width: 8px;
+              transition: width 0.1s ease-in-out; }
+            [control="CPHEditor"] .editor .edit-text .scrollbar.vertical .scroller:hover:before {
+              width: 16px; }
+            [control="CPHEditor"] .editor .edit-text .scrollbar.vertical .scroller.manual {
+              transition: height 0.1s ease-in-out, background-color 0.1s ease-in-out, opacity 0.2s ease-in-out; }
+              [control="CPHEditor"] .editor .edit-text .scrollbar.vertical .scroller.manual:before {
+                width: 16px; }
+        [control="CPHEditor"] .editor .edit-text .scrollbar.horizontal {
+          bottom: 0px;
+          left: 1px;
+          right: 1px;
+          overflow: visible; }
+          [control="CPHEditor"] .editor .edit-text .scrollbar.horizontal .scroller {
+            margin-bottom: 1px;
+            width: 0px;
+            bottom: 0px;
+            left: 0px;
+            height: 16px; }
+            [control="CPHEditor"] .editor .edit-text .scrollbar.horizontal .scroller:before {
+              bottom: 0px;
+              width: 100%;
+              height: 8px;
+              transition: height 0.1s ease-in-out; }
+            [control="CPHEditor"] .editor .edit-text .scrollbar.horizontal .scroller:hover:before {
+              height: 16px; }
+            [control="CPHEditor"] .editor .edit-text .scrollbar.horizontal .scroller.manual {
+              transition: width 0.1s ease-in-out, background-color 0.1s ease-in-out, opacity 0.2s ease-in-out; }
+              [control="CPHEditor"] .editor .edit-text .scrollbar.horizontal .scroller.manual:before {
+                height: 16px; }
+        [control="CPHEditor"] .editor .edit-text .scrollbar .scroller {
+          transform: scaleX(0);
+          position: absolute;
+          opacity: 0;
+          user-select: none;
+          pointer-events: none;
+          transform: translate3d(0px, 0px, 0px);
+          transition: height 0.1s ease-in-out, width 0.1s ease-in-out, background-color 0.1s ease-in-out, opacity 0.2s ease-in-out; }
+          [control="CPHEditor"] .editor .edit-text .scrollbar .scroller:before {
+            content: '';
+            position: absolute;
+            display: block;
+            right: 0px;
+            background-color: rgba(0, 0, 0, 0.4);
+            border-radius: 1000px; }
+          [control="CPHEditor"] .editor .edit-text .scrollbar .scroller.scrolling {
+            opacity: 1;
+            pointer-events: all; }
+          [control="CPHEditor"] .editor .edit-text .scrollbar .scroller.manual {
+            pointer-events: all; }
+    [control="CPHEditor"] .editor div.annotations {
+      z-index: 2;
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      overflow: visible;
+      transform: translate3d(0px, 0px, 0px); }
+      [control="CPHEditor"] .editor div.annotations div.annotation {
+        display: none; }
+        [control="CPHEditor"] .editor div.annotations div.annotation:not(:empty) {
+          display: flex;
+          position: absolute;
+          overflow: visible;
+          right: 0px;
+          margin-top: 7px; }
+          [control="CPHEditor"] .editor div.annotations div.annotation:not(:empty):hover {
+            z-index: 1; }
+          [control="CPHEditor"] .editor div.annotations div.annotation:not(:empty) div.abody {
+            cursor: pointer;
+            font-family: -apple-system, Arial;
+            white-space: nowrap;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+            padding: 4px 8px;
+            margin-right: 4px;
+            background-color: #FFFFFF;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end; }
+            [control="CPHEditor"] .editor div.annotations div.annotation:not(:empty) div.abody span.icon {
+              display: flex;
+              align-items: center;
+              margin-right: -8px; }
+              [control="CPHEditor"] .editor div.annotations div.annotation:not(:empty) div.abody span.icon > img, [control="CPHEditor"] .editor div.annotations div.annotation:not(:empty) div.abody span.icon > svg {
+                width: 12px;
+                height: 12px;
+                margin-right: 8px; }
+              [control="CPHEditor"] .editor div.annotations div.annotation:not(:empty) div.abody span.icon > svg {
+                opacity: 0.6; }
+            [control="CPHEditor"] .editor div.annotations div.annotation:not(:empty) div.abody a.text {
+              display: none;
+              padding: 4px 0px; }
+              [control="CPHEditor"] .editor div.annotations div.annotation:not(:empty) div.abody a.text:link, [control="CPHEditor"] .editor div.annotations div.annotation:not(:empty) div.abody a.text:visited {
+                color: #3556E3;
+                text-decoration: none; }
+                [control="CPHEditor"] .editor div.annotations div.annotation:not(:empty) div.abody a.text:link:hover, [control="CPHEditor"] .editor div.annotations div.annotation:not(:empty) div.abody a.text:visited:hover {
+                  text-decoration: underline; }
+            [control="CPHEditor"] .editor div.annotations div.annotation:not(:empty) div.abody:hover a.text {
+              margin-top: 4px;
+              display: block; }
+    [control="CPHEditor"] .editor textarea {
+      padding: 7px;
+      z-index: 1;
+      overflow: auto;
+      position: absolute;
+      width: calc(100% - 7px);
+      height: 100%;
+      overflow: auto;
+      overscroll-behavior-x: contain;
+      opacity: 0.01;
+      color: transparent;
+      caret-color: transparent; }
+      [control="CPHEditor"] .editor textarea::selection {
+        background-color: transparent; }
+    [control="CPHEditor"] .editor div.render {
+      overflow: visible;
+      display: inline-block;
+      position: relative;
+      z-index: 0;
+      padding: 7px 0px; }
+      [control="CPHEditor"] .editor div.render.blink div.line div.selection span.border.lb:before, [control="CPHEditor"] .editor div.render.blink div.line div.selection span.border.rb:after {
+        animation: ce-caret-animation 1s linear infinite; }
+      [control="CPHEditor"] .editor div.render.sample {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        opacity: 0; }
+      [control="CPHEditor"] .editor div.render.limit {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        height: 100%;
+        border-right: 1px dashed rgba(0, 0, 0, 0.1); }
+        [control="CPHEditor"] .editor div.render.limit > .fill {
+          padding-left: 7px;
+          display: inline-block;
+          position: relative;
+          white-space: pre;
+          opacity: 0; }
+      [control="CPHEditor"] .editor div.render div.line {
+        width: 10000px;
+        transform: translate3d(0px, 0px, 0px);
+        position: absolute;
+        height: 20px;
+        overflow: visible; }
+        [control="CPHEditor"] .editor div.render div.line > .fill {
+          padding: 0px 7px;
+          display: inline-block;
+          position: relative;
+          height: 100%;
+          white-space: pre; }
+        [control="CPHEditor"] .editor div.render div.line > div {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          overflow: visible;
+          white-space: pre; }
+        [control="CPHEditor"] .editor div.render div.line div.display {
+          padding: 0px 7px;
+          z-index: 5; }
+          [control="CPHEditor"] .editor div.render div.line div.display span.whitespace {
+            color: #DDDDDD; }
+          [control="CPHEditor"] .editor div.render div.line div.display span.suggestion {
+            color: rgba(0, 0, 0, 0.2); }
+        [control="CPHEditor"] .editor div.render div.line div.complement {
+          padding: 0px 7px;
+          color: transparent;
+          z-index: 4; }
+          [control="CPHEditor"] .editor div.render div.line div.complement span.underline {
+            transform: translateY(-1px);
+            display: inline-block;
+            border-bottom: 1px solid #3556E3; }
+            [control="CPHEditor"] .editor div.render div.line div.complement span.underline.no-match {
+              border-bottom-color: #E01E1E; }
+        [control="CPHEditor"] .editor div.render div.line div.line-error {
+          padding: 0px 7px;
+          color: transparent;
+          z-index: 3; }
+          [control="CPHEditor"] .editor div.render div.line div.line-error span.underline {
+            opacity: 0.5;
+            display: inline-block;
+            background-color: #FFAA99; }
+        [control="CPHEditor"] .editor div.render div.line div.selection {
+          padding: 0px 7px;
+          z-index: 2;
+          color: transparent; }
+          [control="CPHEditor"] .editor div.render div.line div.selection span.spacer, [control="CPHEditor"] .editor div.render div.line div.selection span.border {
+            display: inline-block;
+            position: relative;
+            height: 100%;
+            vertical-align: text-bottom; }
+          [control="CPHEditor"] .editor div.render div.line div.selection span.border {
+            background-color: rgba(80, 112, 208, 0.2);
+            color: #5070d0; }
+            [control="CPHEditor"] .editor div.render div.line div.selection span.border > span {
+              color: transparent; }
+            [control="CPHEditor"] .editor div.render div.line div.selection span.border.lb:before, [control="CPHEditor"] .editor div.render div.line div.selection span.border.rb:after {
+              display: block;
+              position: absolute;
+              content: '';
+              top: 0px;
+              height: 100%;
+              width: 0px;
+              border-left: 2px solid currentColor; }
+            [control="CPHEditor"] .editor div.render div.line div.selection span.border.lb:before {
+              left: -1px; }
+            [control="CPHEditor"] .editor div.render div.line div.selection span.border.rb:after {
+              right: -1px; }
+            [control="CPHEditor"] .editor div.render div.line div.selection span.border:not(.lb.rb):empty {
+              width: 2px; }
+            [control="CPHEditor"] .editor div.render div.line div.selection span.border .focus {
+              display: block;
+              position: absolute;
+              top: -2px;
+              left: -2px;
+              border: 2px solid transparent;
+              border-left-color: currentColor;
+              border-top-color: currentColor;
+              transform: rotate(225deg); }
+            [control="CPHEditor"] .editor div.render div.line div.selection span.border .uuid {
+              display: block;
+              position: absolute;
+              font-size: 10px;
+              line-height: 10px;
+              padding: 2px 4px;
+              background-color: currentColor;
+              border-radius: 4px;
+              border-bottom-left-radius: 0px;
+              bottom: 100%;
+              left: -1px;
+              z-index: 10; }
+              [control="CPHEditor"] .editor div.render div.line div.selection span.border .uuid > span {
+                color: #FFFFFF; }
+            [control="CPHEditor"] .editor div.render div.line div.selection span.border.rtl:not(.lb) .focus, [control="CPHEditor"] .editor div.render div.line div.selection span.border.rtl:not(.lb) .uuid {
+              display: none; }
+            [control="CPHEditor"] .editor div.render div.line div.selection span.border.ltr:not(.rb) .focus, [control="CPHEditor"] .editor div.render div.line div.selection span.border.ltr:not(.rb) .uuid {
+              display: none; }
+            [control="CPHEditor"] .editor div.render div.line div.selection span.border.ltr .focus {
+              left: auto;
+              right: -2px; }
+            [control="CPHEditor"] .editor div.render div.line div.selection span.border.ltr:not(.length-0) .uuid {
+              left: calc(100% - 1px); }
+            [control="CPHEditor"] .editor div.render div.line div.selection span.border .empty {
+              display: inline-block;
+              position: relative;
+              width: 2px; }
+        [control="CPHEditor"] .editor div.render div.line div.find {
+          position: absolute;
+          top: 0px;
+          left: 0px;
+          padding: 0px 7px;
+          color: transparent;
+          z-index: 1; }
+          [control="CPHEditor"] .editor div.render div.line div.find span.found {
+            display: inline-block;
+            position: relative; }
+            [control="CPHEditor"] .editor div.render div.line div.find span.found:before {
+              display: block;
+              position: absolute;
+              content: '';
+              top: 0px;
+              left: 0px;
+              bottom: 0px;
+              right: 0px;
+              border-radius: 4px;
+              background-color: #FFFADC;
+              border: 2px solid #FF9E29;
+              margin: 0px -1px; }
+        [control="CPHEditor"] .editor div.render div.line div.line-selection {
+          background-color: #5070d0;
+          padding: 0px 7px;
+          z-index: 0;
+          color: transparent; }
+          [control="CPHEditor"] .editor div.render div.line div.line-selection.highlight {
+            opacity: 0.1; }
+    [control="CPHEditor"] .editor textarea,
+    [control="CPHEditor"] .editor div.render {
+      transform: translate3d(0px, 0px, 0px);
+      font-family: 'Source Code Pro', Monospace1, Monospace2, Monospace3, monospace;
+      font-variant-ligatures: none !important;
+      font-weight: 400;
+      white-space: pre !important;
+      font-size: 13px;
+      line-height: 20px;
+      background-color: transparent;
+      outline: none;
+      border: none;
+      resize: none;
+      -ms-overflow-style: none;
+      -moz-tab-size: 2 !important;
+      -o-tab-size: 2 !important;
+      tab-size: 2 !important;
+      scrollbar-width: none; }
+      [control="CPHEditor"] .editor textarea::-webkit-scrollbar,
+      [control="CPHEditor"] .editor div.render::-webkit-scrollbar {
+        display: none; }
+  [control="CPHEditor"] div.mobile-menu {
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    z-index: 32768;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    border-top: 1px solid #DDDDDD;
+    background-color: #F8F8F8; }
+    [control="CPHEditor"] div.mobile-menu div.menu-row {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #DDDDDD; }
+    [control="CPHEditor"] div.mobile-menu div.scrollable {
+      display: flex;
+      align-items: center;
+      flex-grow: 1;
+      box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1);
+      overflow: auto;
+      scrollbar-width: none;
+      border-left: 1px solid #DDDDDD; }
+      [control="CPHEditor"] div.mobile-menu div.scrollable::-webkit-scrollbar {
+        display: none; }
+    [control="CPHEditor"] div.mobile-menu div.spacer {
+      flex-grow: 1;
+      border-left: 1px solid #DDDDDD;
+      height: 60px; }
+    [control="CPHEditor"] div.mobile-menu button {
+      font-family: 'Source Code Pro', Monospace1, Monospace2, Monospace3, monospace;
+      font-variant-ligatures: none !important;
+      font-weight: 400;
+      cursor: pointer;
+      margin: 0px;
+      padding: 0px;
+      flex-shrink: 0;
+      color: #111111;
+      font-size: 13px;
+      height: 60px;
+      min-width: 40px;
+      outline: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 0px;
+      background-color: transparent;
+      border-radius: 0px; }
+      [control="CPHEditor"] div.mobile-menu button svg {
+        width: 12px;
+        height: 12px; }
+      [control="CPHEditor"] div.mobile-menu button.main {
+        background-color: #EFEFEF; }
+      [control="CPHEditor"] div.mobile-menu button.pad {
+        padding: 0px 16px; }
+      [control="CPHEditor"] div.mobile-menu button:not(:first-child) {
+        border-left: 1px solid #DDDDDD; }
+      [control="CPHEditor"] div.mobile-menu button:active {
+        color: #FFFFFF;
+        background-color: #3556E3; }
+  [control="CPHEditor"].mobile-keyboard div.mobile-menu {
+    display: flex; }
+  [control="CPHEditor"]:not([data-render]) > .empty, [control="CPHEditor"]:not([data-render]) > .file, [control="CPHEditor"]:not([data-render]) > .loading {
+    display: none; }
+  [control="CPHEditor"][data-render="file"] > .empty, [control="CPHEditor"][data-render="file"] > .editor, [control="CPHEditor"][data-render="file"] > .loading {
+    display: none; }
+  [control="CPHEditor"][data-render="empty"] > .file, [control="CPHEditor"][data-render="empty"] > .editor, [control="CPHEditor"][data-render="empty"] > .loading {
+    display: none; }
+  [control="CPHEditor"][data-render="loading"] > .empty, [control="CPHEditor"][data-render="loading"] > .file, [control="CPHEditor"][data-render="loading"] > .editor {
+    display: none; }
+  [control="CPHEditor"] > .file {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    min-height: 64px;
+    color: #AAAAAA;
+    background-color: #FFFFFF; }
+    [control="CPHEditor"] > .file img, [control="CPHEditor"] > .file iframe, [control="CPHEditor"] > .file div.unsupported, [control="CPHEditor"] > .file audio {
+      position: relative;
+      display: none;
+      border: none;
+      outline: none; }
+      [control="CPHEditor"] > .file img[src], [control="CPHEditor"] > .file iframe[src], [control="CPHEditor"] > .file div.unsupported[src], [control="CPHEditor"] > .file audio[src] {
+        display: block; }
+    [control="CPHEditor"] > .file img, [control="CPHEditor"] > .file audio {
+      margin: 16px;
+      max-width: calc(100% - 32px);
+      max-height: calc(100% - 32px);
+      object-fit: contain; }
+    [control="CPHEditor"] > .file img, [control="CPHEditor"] > .file iframe {
+      background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAJElEQVQoU2N88ODBfwYkoKCgwIjMZ6SDAmT7QGx0K1EcRBsFAMyiHoVeCfV7AAAAAElFTkSuQmCC"); }
+    [control="CPHEditor"] > .file img {
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); }
+    [control="CPHEditor"] > .file iframe {
+      width: 100%;
+      height: 100%; }
+  [control="CPHEditor"] > .empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 64px;
+    color: #AAAAAA;
+    background-color: #FFFFFF; }
+  [control="CPHEditor"] > .loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 64px;
+    color: #AAAAAA;
+    background-color: #FFFFFF; }
+  [control="CPHEditor"] > .system-messages {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    z-index: 2; }
+    [control="CPHEditor"] > .system-messages > .system-error, [control="CPHEditor"] > .system-messages > .system-reconnect {
+      background-color: #E01E1E;
+      border-radius: 4px;
+      margin: 8px;
+      padding: 4px 8px;
+      color: #FFFFFF;
+      opacity: 1;
+      transition: opacity 0.1s ease-in-out;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); }
+      [control="CPHEditor"] > .system-messages > .system-error:not(.visible), [control="CPHEditor"] > .system-messages > .system-reconnect:not(.visible) {
+        opacity: 0;
+        pointer-events: none;
+        display: none; }
+      [control="CPHEditor"] > .system-messages > .system-error > .error-row, [control="CPHEditor"] > .system-messages > .system-reconnect > .error-row {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding: 4px; }
+        [control="CPHEditor"] > .system-messages > .system-error > .error-row > span.close, [control="CPHEditor"] > .system-messages > .system-reconnect > .error-row > span.close {
+          flex-shrink: 0;
+          position: relative;
+          display: inline-block;
+          margin-left: 8px;
+          width: 16px;
+          height: 16px;
+          border-radius: 4px;
+          background-color: rgba(255, 255, 255, 0);
+          transition: background-color 0.1s ease-in-out, transform 0.1s ease-in-out;
+          cursor: pointer; }
+          [control="CPHEditor"] > .system-messages > .system-error > .error-row > span.close:before, [control="CPHEditor"] > .system-messages > .system-error > .error-row > span.close:after, [control="CPHEditor"] > .system-messages > .system-reconnect > .error-row > span.close:before, [control="CPHEditor"] > .system-messages > .system-reconnect > .error-row > span.close:after {
+            display: block;
+            position: absolute;
+            content: '';
+            background-color: #FFAA99;
+            width: 12px;
+            height: 2px;
+            top: 7px;
+            left: 2px;
+            transform: rotate(45deg);
+            transition: background-color 0.1s ease-in-out; }
+          [control="CPHEditor"] > .system-messages > .system-error > .error-row > span.close:after, [control="CPHEditor"] > .system-messages > .system-reconnect > .error-row > span.close:after {
+            transform: rotate(-45deg); }
+          [control="CPHEditor"] > .system-messages > .system-error > .error-row > span.close:hover, [control="CPHEditor"] > .system-messages > .system-reconnect > .error-row > span.close:hover {
+            background-color: #BD2222; }
+            [control="CPHEditor"] > .system-messages > .system-error > .error-row > span.close:hover:before, [control="CPHEditor"] > .system-messages > .system-error > .error-row > span.close:hover:after, [control="CPHEditor"] > .system-messages > .system-reconnect > .error-row > span.close:hover:before, [control="CPHEditor"] > .system-messages > .system-reconnect > .error-row > span.close:hover:after {
+              background-color: #FFFFFF; }
+  [control="CPHEditor"] > .system-messages > .system-reconnect {
+    background-color: #F06800;
+    display: none; }
+  [control="CPHEditor"].reconnecting > .system-messages > .system-reconnect {
+    opacity: 1.0 !important;
+    display: inline-flex !important; }
+  [control="CPHEditor"] .preview {
+    z-index: 1;
+    display: flex;
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    width: 192px;
+    height: 108px;
+    background-color: #FFFFFF;
+    color: #AAAAAA;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: width 0.1s ease-in-out, height 0.1s ease-in-out;
+    overflow: hidden; }
+    [control="CPHEditor"] .preview:not(.visible) {
+      display: none; }
+    [control="CPHEditor"] .preview:not([data-expanded]):hover {
+      color: #3556E3;
+      border-color: #3556E3; }
+    [control="CPHEditor"] .preview .expand {
+      position: absolute;
+      bottom: 4px;
+      right: 4px;
+      border-radius: 4px;
+      padding: 4px;
+      cursor: pointer;
+      z-index: 1;
+      background-color: #FFFFFF; }
+      [control="CPHEditor"] .preview .expand svg {
+        width: 16px;
+        height: 16px;
+        transition: width 0.1s ease-in-out, height 0.1s ease-in-out; }
+      [control="CPHEditor"] .preview .expand:hover {
+        color: #3556E3; }
+    [control="CPHEditor"] .preview .preview-summary {
+      position: absolute;
+      pointer-events: none;
+      width: 100%;
+      height: 100%; }
+      [control="CPHEditor"] .preview .preview-summary > iframe {
+        position: absolute;
+        width: 500%;
+        height: 500%;
+        border: none;
+        transform: scale(0.2);
+        transform-origin: top left;
+        transition: height 0.1s ease-in-out, width 0.1s ease-in-out, transform 0.1s ease-in-out; }
+    [control="CPHEditor"] .preview[data-expanded] {
+      width: calc(100% - 16px);
+      height: calc(100% - 16px);
+      cursor: auto;
+      border-color: #3556E3; }
+      [control="CPHEditor"] .preview[data-expanded] .expand {
+        background-color: #E01E1E;
+        color: #FFFFFF; }
+        [control="CPHEditor"] .preview[data-expanded] .expand:hover {
+          background-color: #3556E3; }
+        [control="CPHEditor"] .preview[data-expanded] .expand svg {
+          width: 32px;
+          height: 32px; }
+          [control="CPHEditor"] .preview[data-expanded] .expand svg.maximize {
+            display: none; }
+      [control="CPHEditor"] .preview[data-expanded] .preview-summary {
+        pointer-events: auto; }
+        [control="CPHEditor"] .preview[data-expanded] .preview-summary > iframe {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          transform: scale(1); }
+    [control="CPHEditor"] .preview:not([data-expanded]) .expand svg.minimize {
+      display: none; }
+
+control[control="CPHConfirm"] {
+  font-family: -apple-system, Arial;
+  position: absolute;
+  display: flex;
+  font-size: 12px;
+  z-index: 99;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  align-items: center;
+  justify-content: center; }
+  control[control="CPHConfirm"] * {
+    box-sizing: border-box; }
+  control[control="CPHConfirm"] div.modal {
+    padding: 4px;
+    background-color: #F8F8F8;
+    border-radius: 4px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    width: 480px;
+    max-width: calc(100% - 32px); }
+    control[control="CPHConfirm"] div.modal.animate-no {
+      animation: ce-animate-no 0.1s linear infinite; }
+    control[control="CPHConfirm"] div.modal div.description {
+      display: flex;
+      align-items: flex-start;
+      padding: 8px;
+      margin-bottom: 8px;
+      line-height: 1.5em;
+      font-size: 14px;
+      word-wrap: break-word;
+      overflow: hidden; }
+      control[control="CPHConfirm"] div.modal div.description > svg {
+        width: 16px;
+        height: 16px;
+        margin-top: 4px;
+        margin-right: 4px;
+        flex-shrink: 0; }
+      control[control="CPHConfirm"] div.modal div.description > span {
+        margin-left: 8px;
+        overflow: hidden; }
+    control[control="CPHConfirm"] div.modal div.input {
+      display: flex;
+      padding: 4px;
+      justify-content: flex-end; }
+      control[control="CPHConfirm"] div.modal div.input button.btn {
+        font-size: inherit;
+        flex-shrink: 0;
+        background-color: transparent;
+        color: #666666;
+        height: 32px;
+        padding: 0px 7px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        user-select: none;
+        outline: none;
+        min-width: 96px; }
+        control[control="CPHConfirm"] div.modal div.input button.btn[name="submit"] {
+          background-color: #3556E3;
+          color: #FFFFFF; }
+          control[control="CPHConfirm"] div.modal div.input button.btn[name="submit"]:hover {
+            color: #FFFFFF; }
+        control[control="CPHConfirm"] div.modal div.input button.btn:not(:first-child) {
+          margin-left: 4px; }
+        control[control="CPHConfirm"] div.modal div.input button.btn > svg {
+          color: currentColor;
+          width: 16px;
+          height: 16px; }
+        control[control="CPHConfirm"] div.modal div.input button.btn > span {
+          padding: 0px 4px; }
+        control[control="CPHConfirm"] div.modal div.input button.btn:hover {
+          transform: translateY(-1px);
+          box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+          color: #111111;
+          border-color: rgba(0, 0, 0, 0.4); }
+        control[control="CPHConfirm"] div.modal div.input button.btn:active {
+          box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1);
+          transform: translateY(0px); }
+        control[control="CPHConfirm"] div.modal div.input button.btn.on {
+          background-color: #3556E3;
+          color: #FFFFFF;
+          box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1);
+          transform: translateY(0px); }
+        control[control="CPHConfirm"] div.modal div.input button.btn:focus {
+          outline-offset: 1px;
+          outline: 1px solid #3556E3; }
+        control[control="CPHConfirm"] div.modal div.input button.btn[disabled] {
+          cursor: default;
+          transform: translateY(0px) !important;
+          border-color: transparent !important;
+          background-color: transparent !important;
+          color: #AAAAAA !important;
+          box-shadow: none; }
+    control[control="CPHConfirm"] div.modal div.error {
+      display: none;
+      padding: 0px 4px;
+      color: #E01E1E; }
+      control[control="CPHConfirm"] div.modal div.error[data-error] {
+        display: flex; }
+
+control[control="CPHContextMenu"] {
+  font-family: -apple-system, Arial;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  min-width: 150px;
+  z-index: 1000;
+  padding: 4px;
+  background-color: #EFEFEF;
+  border-radius: 4px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 0, 0, 0.1); }
+  control[control="CPHContextMenu"] hr {
+    border: 0;
+    height: 1px;
+    margin: 4px 8px;
+    background-color: rgba(0, 0, 0, 0.1); }
+  control[control="CPHContextMenu"] .item {
+    height: 24px;
+    display: flex;
+    padding: 0px 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    align-items: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #111111;
+    cursor: pointer; }
+    control[control="CPHContextMenu"] .item:active, control[control="CPHContextMenu"] .item:link, control[control="CPHContextMenu"] .item:visited {
+      text-decoration: none; }
+    control[control="CPHContextMenu"] .item.disabled, control[control="CPHContextMenu"] .item.disabled:hover,
+    control[control="CPHContextMenu"] .item.disabled .title,
+    control[control="CPHContextMenu"] .item.disabled .shortcut,
+    control[control="CPHContextMenu"] .item.disabled svg {
+      color: #DDDDDD !important;
+      background-color: transparent;
+      cursor: auto; }
+    control[control="CPHContextMenu"] .item:hover {
+      background-color: #3556E3;
+      color: #FFFFFF; }
+      control[control="CPHContextMenu"] .item:hover .title svg {
+        color: #FFFFFF; }
+      control[control="CPHContextMenu"] .item:hover .shortcut {
+        color: #FFFFFF; }
+    control[control="CPHContextMenu"] .item .title {
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      padding-right: 8px;
+      font-size: 12px; }
+      control[control="CPHContextMenu"] .item .title svg {
+        color: rgba(0, 0, 0, 0.4);
+        flex-grow: 0;
+        width: 12px;
+        margin-right: 8px; }
+      control[control="CPHContextMenu"] .item .title em {
+        font-style: normal;
+        font-size: 10px;
+        opacity: 0.6; }
+        control[control="CPHContextMenu"] .item .title em.yes, control[control="CPHContextMenu"] .item .title em.no, control[control="CPHContextMenu"] .item .title em.maybe {
+          margin-left: 4px; }
+        control[control="CPHContextMenu"] .item .title em.yes {
+          color: #006410; }
+        control[control="CPHContextMenu"] .item .title em.no {
+          color: #BD2222; }
+        control[control="CPHContextMenu"] .item .title em.maybe {
+          color: #666666; }
+    control[control="CPHContextMenu"] .item .shortcut {
+      flex-grow: 0;
+      display: flex;
+      align-items: center;
+      color: #666666;
+      font-size: 10px; }
+      control[control="CPHContextMenu"] .item .shortcut svg {
+        color: currentColor;
+        flex-grow: 0;
+        width: 8px;
+        height: 8px; }
+
+control[control="CPHFileTabs"] {
+  display: flex;
+  color: #333333; }
+  control[control="CPHFileTabs"] * {
+    box-sizing: border-box;
+    user-select: none; }
+  control[control="CPHFileTabs"] > div.file-tabs > div.files {
+    float: left;
+    overflow-x: hidden;
+    overflow-y: auto;
+    white-space: nowrap;
+    position: relative;
+    padding: 4px 1px;
+    padding-bottom: 1px;
+    margin-bottom: -1px; }
+    control[control="CPHFileTabs"] > div.file-tabs > div.files:empty {
+      padding: 0px; }
+    control[control="CPHFileTabs"] > div.file-tabs > div.files > div {
+      margin-bottom: -1px; }
+    control[control="CPHFileTabs"] > div.file-tabs > div.files > .separator {
+      float: left;
+      position: relative;
+      overflow: visible;
+      z-index: 1;
+      pointer-events: none;
+      border-radius: 1000px;
+      width: 1px;
+      background-color: #AAAAAA;
+      height: 18px;
+      margin-left: -1px;
+      margin-top: 8px; }
+      control[control="CPHFileTabs"] > div.file-tabs > div.files > .separator:first-child, control[control="CPHFileTabs"] > div.file-tabs > div.files > .separator:last-child {
+        display: none; }
+      control[control="CPHFileTabs"] > div.file-tabs > div.files > .separator.highlighted {
+        display: block;
+        z-index: 4;
+        background-color: #3556E3;
+        width: 4px;
+        margin-right: -4px; }
+        control[control="CPHFileTabs"] > div.file-tabs > div.files > .separator.highlighted:last-child {
+          margin-left: -4px;
+          margin-right: 0px; }
+
+control[control="CPHFileTabs"] div.file,
+div.file.file-tabs-dragging {
+  box-sizing: border-box;
+  user-select: none;
+  font-family: -apple-system, Arial;
+  font-size: 12px;
+  position: relative;
+  display: flex;
+  float: left;
+  align-items: center;
+  cursor: pointer;
+  line-height: 34px;
+  height: 34px;
+  padding: 0px 16px;
+  color: #666666;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  z-index: 0;
+  background-color: #EFEFEF;
+  transition: background-color 0.1s ease-in-out; }
+  control[control="CPHFileTabs"] div.file.new-file,
+  div.file.file-tabs-dragging.new-file {
+    padding: 0px 9px; }
+    control[control="CPHFileTabs"] div.file.new-file > svg,
+    div.file.file-tabs-dragging.new-file > svg {
+      width: 16px;
+      height: 16px;
+      stroke-width: 3; }
+  control[control="CPHFileTabs"] div.file:hover,
+  div.file.file-tabs-dragging:hover {
+    background-color: #F8F8F8;
+    color: #333333;
+    border-color: rgba(0, 0, 0, 0.1);
+    border-bottom-color: transparent;
+    z-index: 2; }
+  control[control="CPHFileTabs"] div.file[data-selected],
+  div.file.file-tabs-dragging[data-selected] {
+    background-color: #FFFFFF;
+    color: #111111;
+    border-color: rgba(0, 0, 0, 0.1);
+    border-bottom-color: transparent;
+    z-index: 3; }
+  control[control="CPHFileTabs"] div.file:hover, control[control="CPHFileTabs"] div.file[data-selected],
+  div.file.file-tabs-dragging:hover,
+  div.file.file-tabs-dragging[data-selected] {
+    margin-left: -1px;
+    margin-right: -1px; }
+    control[control="CPHFileTabs"] div.file:hover:before, control[control="CPHFileTabs"] div.file:hover:after, control[control="CPHFileTabs"] div.file[data-selected]:before, control[control="CPHFileTabs"] div.file[data-selected]:after,
+    div.file.file-tabs-dragging:hover:before,
+    div.file.file-tabs-dragging:hover:after,
+    div.file.file-tabs-dragging[data-selected]:before,
+    div.file.file-tabs-dragging[data-selected]:after {
+      display: block;
+      width: 1px;
+      content: ''; }
+  control[control="CPHFileTabs"] div.file span.user,
+  div.file.file-tabs-dragging span.user {
+    margin: -4px 0px;
+    margin-left: 4px;
+    width: 16px;
+    height: 16px;
+    color: #5070d0;
+    background-color: #FFFFFF;
+    border-radius: 1000px;
+    display: inline-block;
+    position: relative; }
+    control[control="CPHFileTabs"] div.file span.user.self,
+    div.file.file-tabs-dragging span.user.self {
+      z-index: 1; }
+    control[control="CPHFileTabs"] div.file span.user:after,
+    div.file.file-tabs-dragging span.user:after {
+      display: block;
+      position: absolute;
+      content: '';
+      bottom: -3px;
+      right: -3px;
+      width: 6px;
+      height: 6px;
+      border-radius: 1000px;
+      background-color: currentColor;
+      border: 2px solid #FFFFFF; }
+    control[control="CPHFileTabs"] div.file span.user > img,
+    div.file.file-tabs-dragging span.user > img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 1000px;
+      object-fit: cover; }
+    control[control="CPHFileTabs"] div.file span.user + span.user,
+    div.file.file-tabs-dragging span.user + span.user {
+      margin-left: -6px; }
+  control[control="CPHFileTabs"] div.file span.close,
+  div.file.file-tabs-dragging span.close {
+    position: relative;
+    display: inline-block;
+    margin-left: 4px;
+    margin-right: -8px;
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0);
+    transition: background-color 0.1s ease-in-out, transform 0.1s ease-in-out; }
+    control[control="CPHFileTabs"] div.file span.close:before, control[control="CPHFileTabs"] div.file span.close:after,
+    div.file.file-tabs-dragging span.close:before,
+    div.file.file-tabs-dragging span.close:after {
+      display: block;
+      position: absolute;
+      content: '';
+      background-color: #AAAAAA;
+      width: 12px;
+      height: 2px;
+      top: 7px;
+      left: 2px;
+      transform: rotate(45deg);
+      transition: background-color 0.1s ease-in-out; }
+    control[control="CPHFileTabs"] div.file span.close:after,
+    div.file.file-tabs-dragging span.close:after {
+      transform: rotate(-45deg); }
+    control[control="CPHFileTabs"] div.file span.close:hover,
+    div.file.file-tabs-dragging span.close:hover {
+      background-color: #DDDDDD; }
+      control[control="CPHFileTabs"] div.file span.close:hover:before, control[control="CPHFileTabs"] div.file span.close:hover:after,
+      div.file.file-tabs-dragging span.close:hover:before,
+      div.file.file-tabs-dragging span.close:hover:after {
+        background-color: #666666; }
+  control[control="CPHFileTabs"] div.file span.loading,
+  div.file.file-tabs-dragging span.loading {
+    position: relative;
+    display: none;
+    margin-left: 8px;
+    margin-right: -8px;
+    width: 16px;
+    height: 16px;
+    color: #3556E3;
+    animation: cph-loading-spin 1.5s ease-in-out infinite; }
+    control[control="CPHFileTabs"] div.file span.loading > svg,
+    div.file.file-tabs-dragging span.loading > svg {
+      position: absolute;
+      width: 100%;
+      height: 100%; }
+  control[control="CPHFileTabs"] div.file[data-loading] span.close,
+  div.file.file-tabs-dragging[data-loading] span.close {
+    display: none; }
+  control[control="CPHFileTabs"] div.file[data-loading] span.loading,
+  div.file.file-tabs-dragging[data-loading] span.loading {
+    display: inline-block; }
+  control[control="CPHFileTabs"] div.file.modified,
+  div.file.file-tabs-dragging.modified {
+    color: #F06800; }
+    control[control="CPHFileTabs"] div.file.modified span.close,
+    div.file.file-tabs-dragging.modified span.close {
+      background-color: #F06800;
+      border-radius: 1000px;
+      transform: scale(0.4); }
+      control[control="CPHFileTabs"] div.file.modified span.close:before, control[control="CPHFileTabs"] div.file.modified span.close:after,
+      div.file.file-tabs-dragging.modified span.close:before,
+      div.file.file-tabs-dragging.modified span.close:after {
+        background-color: rgba(255, 255, 255, 0); }
+      control[control="CPHFileTabs"] div.file.modified span.close:hover,
+      div.file.file-tabs-dragging.modified span.close:hover {
+        transform: scale(1);
+        border-radius: 4px; }
+        control[control="CPHFileTabs"] div.file.modified span.close:hover:before, control[control="CPHFileTabs"] div.file.modified span.close:hover:after,
+        div.file.file-tabs-dragging.modified span.close:hover:before,
+        div.file.file-tabs-dragging.modified span.close:hover:after {
+          background-color: white; }
+
+control[control="CPHFindReplace"] {
+  font-family: -apple-system, Arial;
+  position: absolute;
+  font-size: 12px;
+  z-index: 99;
+  top: 4px;
+  right: 20px;
+  padding: 4px;
+  background-color: #F8F8F8;
+  border-radius: 4px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  width: 480px; }
+  control[control="CPHFindReplace"] div.row {
+    display: flex;
+    align-items: center; }
+    control[control="CPHFindReplace"] div.row:not(:first-child) {
+      margin-top: 4px; }
+    control[control="CPHFindReplace"] div.row input[type="text"] {
+      width: 200px;
+      font-family: inherit;
+      font-weight: inherit;
+      flex-shrink: 1;
+      color: #111111;
+      font-size: 12px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      line-height: 1.5em;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      background-color: #FFFFFF;
+      outline: none;
+      border-radius: 4px;
+      padding: 0px 8px;
+      caret-color: #5070d0; }
+      control[control="CPHFindReplace"] div.row input[type="text"]:not(:first-child) {
+        margin-left: 4px; }
+      control[control="CPHFindReplace"] div.row input[type="text"]::placeholder {
+        color: rgba(0, 0, 0, 0.2); }
+      control[control="CPHFindReplace"] div.row input[type="text"]:focus {
+        border-color: #3556E3; }
+    control[control="CPHFindReplace"] div.row div.pos {
+      color: #AAAAAA;
+      margin-left: 8px;
+      padding: 0px 8px;
+      white-space: nowrap; }
+    control[control="CPHFindReplace"] div.row div.spacer {
+      flex-grow: 1; }
+    control[control="CPHFindReplace"] div.row a.btn {
+      flex-shrink: 0;
+      color: #666666;
+      height: 32px;
+      padding: 0px 7px;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      user-select: none;
+      outline: none; }
+      control[control="CPHFindReplace"] div.row a.btn:not(:first-child) {
+        margin-left: 4px; }
+      control[control="CPHFindReplace"] div.row a.btn > svg {
+        color: currentColor;
+        width: 16px;
+        height: 16px; }
+      control[control="CPHFindReplace"] div.row a.btn > span {
+        padding: 0px 4px; }
+      control[control="CPHFindReplace"] div.row a.btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+        color: #111111;
+        border-color: rgba(0, 0, 0, 0.4); }
+      control[control="CPHFindReplace"] div.row a.btn:active {
+        box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1);
+        transform: translateY(0px); }
+      control[control="CPHFindReplace"] div.row a.btn.on {
+        background-color: #3556E3;
+        color: #FFFFFF;
+        box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1);
+        transform: translateY(0px); }
+      control[control="CPHFindReplace"] div.row a.btn:focus {
+        border: 1px solid #3556E3; }
+      control[control="CPHFindReplace"] div.row a.btn[disabled] {
+        cursor: default;
+        transform: translateY(0px) !important;
+        border-color: transparent !important;
+        color: #AAAAAA !important;
+        box-shadow: none; }
+
+control[control="CPHTextInput"] {
+  font-family: -apple-system, Arial;
+  position: absolute;
+  display: flex;
+  font-size: 12px;
+  z-index: 99;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  align-items: center;
+  justify-content: center; }
+  control[control="CPHTextInput"] * {
+    box-sizing: border-box; }
+  control[control="CPHTextInput"] div.modal {
+    padding: 4px;
+    background-color: #F8F8F8;
+    border-radius: 4px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    width: 480px;
+    max-width: calc(100% - 32px); }
+    control[control="CPHTextInput"] div.modal div.description {
+      display: flex;
+      align-items: flex-start;
+      padding: 8px;
+      margin-bottom: 8px;
+      line-height: 1.5em;
+      font-size: 14px;
+      word-wrap: break-word;
+      overflow: hidden; }
+      control[control="CPHTextInput"] div.modal div.description > svg {
+        flex-shrink: 0;
+        width: 12px;
+        height: 12px;
+        margin-top: 4px;
+        margin-right: 4px; }
+      control[control="CPHTextInput"] div.modal div.description > span {
+        margin-left: 8px;
+        overflow: hidden; }
+    control[control="CPHTextInput"] div.modal div.input {
+      display: flex;
+      padding: 4px; }
+      control[control="CPHTextInput"] div.modal div.input input[type="text"] {
+        flex-grow: 1;
+        font-family: inherit;
+        font-weight: inherit;
+        flex-shrink: 1;
+        color: #111111;
+        font-size: 12px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        line-height: 1.5em;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        background-color: #FFFFFF;
+        outline: none;
+        border-radius: 4px;
+        padding: 0px 8px;
+        caret-color: #5070d0; }
+        control[control="CPHTextInput"] div.modal div.input input[type="text"]:not(:first-child) {
+          margin-left: 4px; }
+        control[control="CPHTextInput"] div.modal div.input input[type="text"]::placeholder {
+          color: rgba(0, 0, 0, 0.2); }
+        control[control="CPHTextInput"] div.modal div.input input[type="text"]:focus {
+          border-color: #3556E3; }
+      control[control="CPHTextInput"] div.modal div.input button.btn {
+        font-size: inherit;
+        flex-shrink: 0;
+        background-color: transparent;
+        color: #666666;
+        height: 32px;
+        padding: 0px 7px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        user-select: none;
+        outline: none;
+        min-width: 96px; }
+        control[control="CPHTextInput"] div.modal div.input button.btn[name="submit"] {
+          background-color: #3556E3;
+          color: #FFFFFF; }
+          control[control="CPHTextInput"] div.modal div.input button.btn[name="submit"]:hover {
+            color: #FFFFFF; }
+        control[control="CPHTextInput"] div.modal div.input button.btn:not(:first-child) {
+          margin-left: 4px; }
+        control[control="CPHTextInput"] div.modal div.input button.btn > svg {
+          color: currentColor;
+          width: 16px;
+          height: 16px; }
+        control[control="CPHTextInput"] div.modal div.input button.btn > span {
+          padding: 0px 4px; }
+        control[control="CPHTextInput"] div.modal div.input button.btn:hover {
+          transform: translateY(-1px);
+          box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+          color: #111111;
+          border-color: rgba(0, 0, 0, 0.4); }
+        control[control="CPHTextInput"] div.modal div.input button.btn:active {
+          box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1);
+          transform: translateY(0px); }
+        control[control="CPHTextInput"] div.modal div.input button.btn.on {
+          background-color: #3556E3;
+          color: #FFFFFF;
+          box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1);
+          transform: translateY(0px); }
+        control[control="CPHTextInput"] div.modal div.input button.btn:focus {
+          outline-offset: 1px;
+          outline: 1px solid #3556E3; }
+        control[control="CPHTextInput"] div.modal div.input button.btn[disabled] {
+          cursor: default;
+          transform: translateY(0px) !important;
+          border-color: transparent !important;
+          background-color: transparent !important;
+          color: #AAAAAA !important;
+          box-shadow: none; }
+    control[control="CPHTextInput"] div.modal div.error {
+      display: none;
+      padding: 0px 4px;
+      color: #E01E1E; }
+      control[control="CPHTextInput"] div.modal div.error[data-error] {
+        display: flex; }
+
+@keyframes treeview-spin {
+  0% {
+    transform: rotate(0deg);
+    opacity: 1.0; }
+  50% {
+    transform: rotate(180deg);
+    opacity: 0.5; }
+  100% {
+    transform: rotate(360deg);
+    opacity: 1.0; } }
+
+.treeview-dragging {
+  font-family: -apple-system, Arial;
+  display: flex;
+  align-items: center;
+  padding: 4px 8px;
+  background-color: #FFFFFF;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  margin-left: 16px;
+  border-radius: 4px;
+  opacity: 0.4; }
+  .treeview-dragging > span.icon {
+    flex-shrink: 0;
+    width: 12px;
+    height: 12px;
+    position: relative; }
+    .treeview-dragging > span.icon.folder {
+      color: #70E2FF !important; }
+      .treeview-dragging > span.icon.folder > svg {
+        fill: currentColor;
+        stroke-width: 0; }
+    .treeview-dragging > span.icon.red {
+      color: #E01E1E !important; }
+    .treeview-dragging > span.icon.green {
+      color: #1C9B40 !important; }
+    .treeview-dragging > span.icon.blue {
+      color: #3556E3 !important; }
+    .treeview-dragging > span.icon.orange {
+      color: #FF9E29 !important; }
+    .treeview-dragging > span.icon.purple {
+      color: #AE2AF4 !important; }
+    .treeview-dragging > span.icon.red-light {
+      color: #FFAA99 !important; }
+    .treeview-dragging > span.icon.green-light {
+      color: #45DD98 !important; }
+    .treeview-dragging > span.icon.blue-light {
+      color: #70E2FF !important; }
+    .treeview-dragging > span.icon.orange-light {
+      color: #FFD28E !important; }
+    .treeview-dragging > span.icon.purple-light {
+      color: #CEA3F6 !important; }
+    .treeview-dragging > span.icon.spin > svg {
+      animation: treeview-spin 1.5s ease-in-out infinite; }
+    .treeview-dragging > span.icon.stroke > svg {
+      stroke-width: 3;
+      fill: none; }
+    .treeview-dragging > span.icon.move, .treeview-dragging > span.icon.copy {
+      color: #1C9B40; }
+      .treeview-dragging > span.icon.move > svg, .treeview-dragging > span.icon.copy > svg {
+        stroke-width: 3; }
+    .treeview-dragging > span.icon > svg, .treeview-dragging > span.icon > img {
+      width: 100%;
+      height: 100%; }
+  .treeview-dragging > span.name {
+    flex-shrink: 0;
+    flex-grow: 1;
+    font-size: 12px;
+    white-space: nowrap; }
+  .treeview-dragging[data-drop-action="move"], .treeview-dragging[data-drop-action="copy"] {
+    opacity: 1.0; }
+  .treeview-dragging:not([data-drop-action="move"]) > span.move {
+    display: none; }
+  .treeview-dragging:not([data-drop-action="copy"]) > span.copy {
+    display: none; }
+  .treeview-dragging > span {
+    margin-right: 4px; }
+
+control[control="CPHTreeView"] {
+  font-family: -apple-system, Arial;
+  display: flex;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  font-size: 12px;
+  color: #333333; }
+  control[control="CPHTreeView"] * {
+    box-sizing: border-box;
+    user-select: none; }
+  control[control="CPHTreeView"] > div.files {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: auto; }
+    control[control="CPHTreeView"] > div.files .directory-group[data-open="true"] span.icon.open {
+      display: block; }
+    control[control="CPHTreeView"] > div.files .directory-group[data-open="true"] span.icon.closed {
+      display: none; }
+    control[control="CPHTreeView"] > div.files .directory-group:not([data-open="true"]) > .file, control[control="CPHTreeView"] > div.files .directory-group:not([data-open="true"]) > .directory-group, control[control="CPHTreeView"] > div.files .directory-group:not([data-open="true"]) > .temporary {
+      display: none; }
+    control[control="CPHTreeView"] > div.files .directory-group:not([data-open="true"]) span.icon.open {
+      display: none; }
+    control[control="CPHTreeView"] > div.files .directory-group:not([data-open="true"]) span.icon.closed {
+      display: block; }
+    control[control="CPHTreeView"] > div.files .directory-group[data-selected] > .directory,
+    control[control="CPHTreeView"] > div.files .file[data-selected] {
+      color: #3556E3; }
+      control[control="CPHTreeView"] > div.files .directory-group[data-selected] > .directory .icon,
+      control[control="CPHTreeView"] > div.files .file[data-selected] .icon {
+        color: #3556E3; }
+    control[control="CPHTreeView"] > div.files .directory-group[data-drop="true"] > .directory, control[control="CPHTreeView"] > div.files .directory-group[data-drop="true"] > .file, control[control="CPHTreeView"] > div.files .directory-group[data-drop="true"] > .file[data-selected] {
+      background-color: #D9FFEF; }
+    control[control="CPHTreeView"] > div.files .file[data-selected] {
+      background-color: #E6F8FF; }
+    control[control="CPHTreeView"] > div.files .directory, control[control="CPHTreeView"] > div.files .file, control[control="CPHTreeView"] > div.files .temporary {
+      display: flex;
+      align-items: center;
+      padding: 8px 0px;
+      cursor: pointer;
+      vertical-align: text-top;
+      border-radius: 4px;
+      overflow: hidden; }
+      control[control="CPHTreeView"] > div.files .directory:not(.temporary):hover, control[control="CPHTreeView"] > div.files .directory.highlight, control[control="CPHTreeView"] > div.files .file:not(.temporary):hover, control[control="CPHTreeView"] > div.files .file.highlight, control[control="CPHTreeView"] > div.files .temporary:not(.temporary):hover, control[control="CPHTreeView"] > div.files .temporary.highlight {
+        background-color: #E6F8FF; }
+      control[control="CPHTreeView"] > div.files .directory.modified, control[control="CPHTreeView"] > div.files .file.modified, control[control="CPHTreeView"] > div.files .temporary.modified {
+        color: #F06800; }
+        control[control="CPHTreeView"] > div.files .directory.modified span.icon > svg, control[control="CPHTreeView"] > div.files .file.modified span.icon > svg, control[control="CPHTreeView"] > div.files .temporary.modified span.icon > svg {
+          color: #F06800 !important; }
+      control[control="CPHTreeView"] > div.files .directory.readonly, control[control="CPHTreeView"] > div.files .file.readonly, control[control="CPHTreeView"] > div.files .temporary.readonly {
+        color: #AAAAAA; }
+        control[control="CPHTreeView"] > div.files .directory.readonly span.icon, control[control="CPHTreeView"] > div.files .file.readonly span.icon, control[control="CPHTreeView"] > div.files .temporary.readonly span.icon {
+          color: #DDDDDD !important; }
+      control[control="CPHTreeView"] > div.files .directory span.pre, control[control="CPHTreeView"] > div.files .file span.pre, control[control="CPHTreeView"] > div.files .temporary span.pre {
+        display: inline-block;
+        width: 16px;
+        flex-shrink: 0; }
+      control[control="CPHTreeView"] > div.files .directory span.icon, control[control="CPHTreeView"] > div.files .file span.icon, control[control="CPHTreeView"] > div.files .temporary span.icon {
+        flex-shrink: 0;
+        width: 12px;
+        height: 12px;
+        margin-left: 4px;
+        position: relative;
+        display: inline-block;
+        color: #AAAAAA; }
+        control[control="CPHTreeView"] > div.files .directory span.icon.folder, control[control="CPHTreeView"] > div.files .file span.icon.folder, control[control="CPHTreeView"] > div.files .temporary span.icon.folder {
+          color: #70E2FF !important; }
+          control[control="CPHTreeView"] > div.files .directory span.icon.folder > svg, control[control="CPHTreeView"] > div.files .file span.icon.folder > svg, control[control="CPHTreeView"] > div.files .temporary span.icon.folder > svg {
+            fill: currentColor;
+            stroke: currentColor;
+            stroke-width: 0; }
+        control[control="CPHTreeView"] > div.files .directory span.icon.red, control[control="CPHTreeView"] > div.files .file span.icon.red, control[control="CPHTreeView"] > div.files .temporary span.icon.red {
+          color: #E01E1E !important; }
+        control[control="CPHTreeView"] > div.files .directory span.icon.green, control[control="CPHTreeView"] > div.files .file span.icon.green, control[control="CPHTreeView"] > div.files .temporary span.icon.green {
+          color: #1C9B40 !important; }
+        control[control="CPHTreeView"] > div.files .directory span.icon.blue, control[control="CPHTreeView"] > div.files .file span.icon.blue, control[control="CPHTreeView"] > div.files .temporary span.icon.blue {
+          color: #3556E3 !important; }
+        control[control="CPHTreeView"] > div.files .directory span.icon.orange, control[control="CPHTreeView"] > div.files .file span.icon.orange, control[control="CPHTreeView"] > div.files .temporary span.icon.orange {
+          color: #FF9E29 !important; }
+        control[control="CPHTreeView"] > div.files .directory span.icon.purple, control[control="CPHTreeView"] > div.files .file span.icon.purple, control[control="CPHTreeView"] > div.files .temporary span.icon.purple {
+          color: #AE2AF4 !important; }
+        control[control="CPHTreeView"] > div.files .directory span.icon.red-light, control[control="CPHTreeView"] > div.files .file span.icon.red-light, control[control="CPHTreeView"] > div.files .temporary span.icon.red-light {
+          color: #FFAA99 !important; }
+        control[control="CPHTreeView"] > div.files .directory span.icon.green-light, control[control="CPHTreeView"] > div.files .file span.icon.green-light, control[control="CPHTreeView"] > div.files .temporary span.icon.green-light {
+          color: #45DD98 !important; }
+        control[control="CPHTreeView"] > div.files .directory span.icon.blue-light, control[control="CPHTreeView"] > div.files .file span.icon.blue-light, control[control="CPHTreeView"] > div.files .temporary span.icon.blue-light {
+          color: #70E2FF !important; }
+        control[control="CPHTreeView"] > div.files .directory span.icon.orange-light, control[control="CPHTreeView"] > div.files .file span.icon.orange-light, control[control="CPHTreeView"] > div.files .temporary span.icon.orange-light {
+          color: #FFD28E !important; }
+        control[control="CPHTreeView"] > div.files .directory span.icon.purple-light, control[control="CPHTreeView"] > div.files .file span.icon.purple-light, control[control="CPHTreeView"] > div.files .temporary span.icon.purple-light {
+          color: #CEA3F6 !important; }
+        control[control="CPHTreeView"] > div.files .directory span.icon.spin > svg, control[control="CPHTreeView"] > div.files .file span.icon.spin > svg, control[control="CPHTreeView"] > div.files .temporary span.icon.spin > svg {
+          animation: treeview-spin 1.5s ease-in-out infinite; }
+        control[control="CPHTreeView"] > div.files .directory span.icon.stroke > svg, control[control="CPHTreeView"] > div.files .file span.icon.stroke > svg, control[control="CPHTreeView"] > div.files .temporary span.icon.stroke > svg {
+          stroke-width: 3;
+          fill: none; }
+        control[control="CPHTreeView"] > div.files .directory span.icon > svg, control[control="CPHTreeView"] > div.files .directory span.icon > img, control[control="CPHTreeView"] > div.files .file span.icon > svg, control[control="CPHTreeView"] > div.files .file span.icon > img, control[control="CPHTreeView"] > div.files .temporary span.icon > svg, control[control="CPHTreeView"] > div.files .temporary span.icon > img {
+          width: 100%;
+          height: 100%;
+          position: absolute; }
+        control[control="CPHTreeView"] > div.files .directory span.icon.loading, control[control="CPHTreeView"] > div.files .file span.icon.loading, control[control="CPHTreeView"] > div.files .temporary span.icon.loading {
+          display: none;
+          animation: cph-loading-spin 1.5s ease-in-out infinite;
+          color: #3556E3; }
+      control[control="CPHTreeView"] > div.files .directory[data-loading] > span.icon.loading, control[control="CPHTreeView"] > div.files .file[data-loading] > span.icon.loading, control[control="CPHTreeView"] > div.files .temporary[data-loading] > span.icon.loading {
+        display: flex; }
+      control[control="CPHTreeView"] > div.files .directory[data-loading] > span.icon.not-loading, control[control="CPHTreeView"] > div.files .file[data-loading] > span.icon.not-loading, control[control="CPHTreeView"] > div.files .temporary[data-loading] > span.icon.not-loading {
+        display: none; }
+      control[control="CPHTreeView"] > div.files .directory span.name, control[control="CPHTreeView"] > div.files .file span.name, control[control="CPHTreeView"] > div.files .temporary span.name {
+        margin-left: 4px;
+        word-wrap: break-word;
+        overflow: hidden; }
+      control[control="CPHTreeView"] > div.files .directory span.spacer, control[control="CPHTreeView"] > div.files .file span.spacer, control[control="CPHTreeView"] > div.files .temporary span.spacer {
+        flex-grow: 1; }
+      control[control="CPHTreeView"] > div.files .directory span.description, control[control="CPHTreeView"] > div.files .file span.description, control[control="CPHTreeView"] > div.files .temporary span.description {
+        padding: 0px 8px;
+        font-size: 10px;
+        opacity: 0.5; }
+      control[control="CPHTreeView"] > div.files .directory span.user, control[control="CPHTreeView"] > div.files .file span.user, control[control="CPHTreeView"] > div.files .temporary span.user {
+        flex-shrink: 0;
+        margin: -4px 0px;
+        margin-left: 4px;
+        width: 16px;
+        height: 16px;
+        color: #5070d0;
+        background-color: #FFFFFF;
+        border-radius: 1000px;
+        display: inline-block;
+        position: relative; }
+        control[control="CPHTreeView"] > div.files .directory span.user.self, control[control="CPHTreeView"] > div.files .file span.user.self, control[control="CPHTreeView"] > div.files .temporary span.user.self {
+          z-index: 1; }
+        control[control="CPHTreeView"] > div.files .directory span.user:after, control[control="CPHTreeView"] > div.files .file span.user:after, control[control="CPHTreeView"] > div.files .temporary span.user:after {
+          display: block;
+          position: absolute;
+          content: '';
+          bottom: -3px;
+          right: -3px;
+          width: 6px;
+          height: 6px;
+          border-radius: 1000px;
+          background-color: currentColor;
+          border: 2px solid #FFFFFF; }
+        control[control="CPHTreeView"] > div.files .directory span.user > img, control[control="CPHTreeView"] > div.files .file span.user > img, control[control="CPHTreeView"] > div.files .temporary span.user > img {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          border-radius: 1000px;
+          object-fit: cover; }
+        control[control="CPHTreeView"] > div.files .directory span.user + span.user, control[control="CPHTreeView"] > div.files .file span.user + span.user, control[control="CPHTreeView"] > div.files .temporary span.user + span.user {
+          margin-left: -6px; }
+        control[control="CPHTreeView"] > div.files .directory span.user:last-child, control[control="CPHTreeView"] > div.files .file span.user:last-child, control[control="CPHTreeView"] > div.files .temporary span.user:last-child {
+          margin-right: 8px; }
+    control[control="CPHTreeView"] > div.files .temporary {
+      margin-top: 16px;
+      cursor: inherit; }

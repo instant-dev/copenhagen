@@ -4,13 +4,16 @@
   "author": "keith <keith@polybit.com>",
   "main": "functions/__main__.js",
   "scripts": {
-    "start": "node --inspect multiplayer/server.js",
-    "multiplayer": "nodemon multiplayer/server.js",
+    "start": "node serve.funct.mjs",
     "dummy": "nodemon multiplayer/dummy_server.js"
   },
-  "dependencies": {},
   "publish": false,
   "devDependencies": {
-    "nodemon": "2.0.13"
+    "@instant.dev/api": "^0.1.12",
+    "dot": "^1.1.3",
+    "dotenv": "^16.4.5",
+    "node-sass": "^9.0.0",
+    "nodemon": "2.0.13",
+    "uglify-js": "^3.19.3"
   }
 }

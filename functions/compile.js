@@ -1,4 +1,4 @@
-const VERSION = 'v0.3.0';
+const VERSION = 'v0.3.1';
 
 const fs = require('fs');
 const path = require('path');

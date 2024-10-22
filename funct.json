@@ -1,0 +1,7 @@
+{
+  "name": "private/@keith/copenhagen",
+  "local": {
+    "port": 3434,
+    "route": "/"
+  }
+}
