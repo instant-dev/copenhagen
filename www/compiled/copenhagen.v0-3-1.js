@@ -1201,6 +1201,10 @@ function CPHEditor (app, cfg) {
   this.fileTabs.on('swap', function (fileTabs, fromIndex, toIndex) { this.swapOpenFiles(fromIndex, toIndex); }.bind(this));
   this.fileTabs.on('file.create', function (fileTabs, pathname, value) { this.createFile(pathname, value); }.bind(this));
 
+  // FIXME: Populate TreeView needs to be automatic from fileManager activity
+  this.treeView.populate(this.users, this.fileManager);
+  this.fileTabs.populate(this.users, this.fileManager);
+
   this.language = '';
   this.lineHeight = 0;
   this.height = 0;
@@ -4964,7 +4968,20 @@ CPHEditor.prototype.createFile = function (pathname, value, isDirectory) {
         }
       );
     } else {
-      // TO DO: Local empty file creation...
+      let filename = pathname.slice(this.fileManager.TEMPORARY_PREFIX.length);
+      const ext = filename.split('.').pop();
+      const name = filename.split('.').slice(0, -1).join('.');
+      let i = 1;
+      let tempname = filename;
+      while (this.fileManager.exists(tempname)) {
+        i++;
+        if (ext === name) {
+          tempname = `${name}-${i}`;
+        } else {
+          tempname = `${name}-${i}.${ext}`;
+        }
+      }
+      this.openFile(tempname);
     }
   } else {
     var path = this.parsePathname(pathname);

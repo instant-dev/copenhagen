@@ -318,7 +318,20 @@ CPHEditor.prototype.createFile = function (pathname, value, isDirectory) {
         }
       );
     } else {
-      // TO DO: Local empty file creation...
+      let filename = pathname.slice(this.fileManager.TEMPORARY_PREFIX.length);
+      const ext = filename.split('.').pop();
+      const name = filename.split('.').slice(0, -1).join('.');
+      let i = 1;
+      let tempname = filename;
+      while (this.fileManager.exists(tempname)) {
+        i++;
+        if (ext === name) {
+          tempname = `${name}-${i}`;
+        } else {
+          tempname = `${name}-${i}.${ext}`;
+        }
+      }
+      this.openFile(tempname);
     }
   } else {
     var path = this.parsePathname(pathname);

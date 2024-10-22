@@ -59,6 +59,10 @@ function CPHEditor (app, cfg) {
   this.fileTabs.on('swap', function (fileTabs, fromIndex, toIndex) { this.swapOpenFiles(fromIndex, toIndex); }.bind(this));
   this.fileTabs.on('file.create', function (fileTabs, pathname, value) { this.createFile(pathname, value); }.bind(this));
 
+  // FIXME: Populate TreeView needs to be automatic from fileManager activity
+  this.treeView.populate(this.users, this.fileManager);
+  this.fileTabs.populate(this.users, this.fileManager);
+
   this.language = '';
   this.lineHeight = 0;
   this.height = 0;
