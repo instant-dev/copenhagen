@@ -244,7 +244,7 @@ CPHFileManager.prototype.open = function (pathname, fileData, preventActive) {
     {
       users: {},
       modified: false,
-      tempPathname: null,
+      tempPathname: fileData.tempPathname || null,
       readonly: false,
       type: fileData.type
     };

@@ -115,7 +115,9 @@ function CPHEditor (app, cfg) {
   this._maxLine = ''; // max line width
   this._formatCache = {}; // keeps track of formatted lines
   this._annotations = {}; // track annotations
-  this.value = this.fileManager.activeFile.history.initialValue;
+  this.value = this.fileManager.activeFile
+    ? this.fileManager.activeFile.history.initialValue
+    : null;
 
   this.users = [];
   this.userLookup = {};

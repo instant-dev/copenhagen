@@ -1257,7 +1257,9 @@ function CPHEditor (app, cfg) {
   this._maxLine = ''; // max line width
   this._formatCache = {}; // keeps track of formatted lines
   this._annotations = {}; // track annotations
-  this.value = this.fileManager.activeFile.history.initialValue;
+  this.value = this.fileManager.activeFile
+    ? this.fileManager.activeFile.history.initialValue
+    : null;
 
   this.users = [];
   this.userLookup = {};
@@ -4938,7 +4940,7 @@ CPHEditor.prototype.openFile = function (pathname, fileData) {
           data: activeFile && this.fileManager.files[activeFile.pathname]
         }
       );
-      setTimeout(function () { this.focus(); }.bind(this));
+      setTimeout(function () { this.focus(); }.bind(this), 1);
     }.bind(this), 1);
   }
 };
@@ -4995,7 +4997,7 @@ CPHEditor.prototype.closeFile = function (pathname, unlink) {
       data: activeFile && this.fileManager.files[activeFile.pathname]
     }
   );
-  setTimeout(function () { this.focus(); }.bind(this));
+  setTimeout(function () { this.focus(); }.bind(this), 1);
 };
 
 
@@ -5409,7 +5411,7 @@ CPHEditor.prototype._fileServerEvents = {
           data: activeFile && this.fileManager.files[activeFile.pathname]
         }
       );
-      setTimeout(function () { this.focus(); }.bind(this));
+      setTimeout(function () { this.focus(); }.bind(this), 1);
     }
   },
   'filesystem.overwrite': function (data) {
@@ -5499,7 +5501,7 @@ CPHEditor.prototype._fileServerEvents = {
         data: activeFile && this.fileManager.files[activeFile.pathname]
       }
     );
-    setTimeout(function () { this.focus(); }.bind(this));
+    setTimeout(function () { this.focus(); }.bind(this), 1);
   },
   'filesystem.textoperations': function (data) {
     var clientRevision = this.__receiveTextOperations(data.pathname, data.textOperations);
@@ -6941,7 +6943,7 @@ CPHFileManager.prototype.open = function (pathname, fileData, preventActive) {
     {
       users: {},
       modified: false,
-      tempPathname: null,
+      tempPathname: fileData.tempPathname || null,
       readonly: false,
       type: fileData.type
     };
