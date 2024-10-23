@@ -1158,8 +1158,20 @@ function CPHEditor (app, cfg) {
   this.tabout = cfg.hasOwnProperty('tabout') && cfg.tabout !== false;
   this.nolines = cfg.hasOwnProperty('nolines') && cfg.nolines !== false;
 
+  this.localFiles = {}; // for loading local files
   this.fileManager = new CPHFileManager();
-  this.fileManager.open(cfg.filename || '(untitled)', {value: cfg.value || ''});
+  if (cfg.filename || cfg.value) {
+    // Open initial file
+    const filename = cfg.filename || '(untitled)';
+    this.fileManager.open(
+      filename,
+      cfg.value
+        ? { value: cfg.value }
+        : this.localFiles[filename]
+          ? { value: this.localFiles[filename] }
+          : void 0
+    );
+  }
 
   this.treeView = new CPHTreeView(this.app, {editor: this});
   this.treeView.on('select', function (treeView, pathname) { this.openFile(pathname); }.bind(this));
@@ -1187,8 +1199,9 @@ function CPHEditor (app, cfg) {
   this.fileTabs.on('close', function (fileTabs, pathname) {
     if (this.fileManager.isModified(pathname)) {
       var message = [
-        'You have unsaved changes to this file. ',
-        'If you are the last active user, these changes will be lost. ',
+        'You have unsaved changes to this file',
+        this.ws ? '. If you are the last active user' : '',
+        ', these changes will be lost. ',
         'Would you still like to proceed?'
       ].join('');
       var confirm = new CPHConfirm(this.app, {message: message});
@@ -1663,6 +1676,21 @@ CPHEditor.prototype.windowEvents = {
         this.width = this.textboxElement.offsetWidth;
         this.render(this.value);
         break;
+      }
+    }
+  }
+};
+
+CPHEditor.prototype.selfActions = {
+  'change': (ctrl, value) => {
+    if (!this.ws) {
+      const file = ctrl.fileManager.activeFile;
+      if (file) {
+        const modified = value !== file.value;
+        ctrl.fileManager.files[file.pathname].modified = modified;
+        // FIXME: Populate TreeView needs to be automatic from fileManager activity
+        ctrl.treeView.populate(ctrl.users, ctrl.fileManager);
+        ctrl.fileTabs.populate(ctrl.users, ctrl.fileManager);
       }
     }
   }
@@ -2603,6 +2631,36 @@ CPHEditor.prototype.save = function (callback, force) {
       );
     }
   } else {
+    // Local save
+    const file = this.fileManager.activeFile;
+    if (file) {
+      this.fileManager.files[file.pathname].modified = false;
+      file.value = value;
+      if (this.fileManager.isTemporary(file.pathname)) {
+        const pathname = this.fileManager.getFormattedPathname(file.pathname);
+        const ext = pathname.split('.').pop();
+        const name = pathname.split('.').slice(0, -1).join('.');
+        let i = 1;
+        let filename = pathname;
+        while (this.fileManager.exists(filename)) {
+          i++;
+          if (ext === name) {
+            filename = `${name}-${i}`;
+          } else {
+            filename = `${name}-${i}.${ext}`;
+          }
+        }
+        this.fileManager.move(
+          file.pathname,
+          filename
+        );
+        this.fileManager.files[file.pathname].tempPathname = null;
+      }
+      this.localFiles[file.pathname] = value;
+      // FIXME: Populate TreeView needs to be automatic from fileManager activity
+      this.treeView.populate(this.users, this.fileManager);
+      this.fileTabs.populate(this.users, this.fileManager);
+    }
     setTimeout(function () { this._dequeueSaveCallbacks(); }.bind(this), 1);
   }
   return value;
@@ -4834,6 +4892,13 @@ CPHEditor.prototype.openFile = function (pathname, fileData) {
       this.fileTabs.populate(this.users, this.fileManager);
     }.bind(this), 1);
   } else {
+    if (!this.ws) {
+      fileData = fileData || (
+        this.fileManager.isOpen(pathname)
+          ? void 0
+          : { value: this.localFiles[pathname] }
+      );
+    }
     setTimeout(function () {
       var activeFile = this.fileManager.open(pathname, fileData);
       if (activeFile) {
@@ -4884,6 +4949,12 @@ CPHEditor.prototype.closeFile = function (pathname, unlink) {
       this.__sendToFileServer('client.filesystem.unlink', {pathname: pathname});
     } else {
       this.__sendToFileServer('client.filesystem.close', {pathname: pathname});
+    }
+  } else {
+    // Local file management
+    this.fileManager.files[pathname].modified = false;
+    if (this.fileManager.files[pathname].tempPathname) {
+      delete this.fileManager.files[pathname];
     }
   }
   var activeFile = unlink
@@ -4968,20 +5039,20 @@ CPHEditor.prototype.createFile = function (pathname, value, isDirectory) {
         }
       );
     } else {
-      let filename = pathname.slice(this.fileManager.TEMPORARY_PREFIX.length);
-      const ext = filename.split('.').pop();
-      const name = filename.split('.').slice(0, -1).join('.');
+      const ext = pathname.split('.').pop();
+      const name = pathname.split('.').slice(0, -1).join('.');
       let i = 1;
-      let tempname = filename;
-      while (this.fileManager.exists(tempname)) {
+      let filename = pathname;
+      while (this.fileManager.exists(filename)) {
         i++;
         if (ext === name) {
-          tempname = `${name}-${i}`;
+          filename = `${name}-${i}`;
         } else {
-          tempname = `${name}-${i}.${ext}`;
+          filename = `${name}-${i}.${ext}`;
         }
       }
-      this.openFile(tempname);
+      const tempPathname = pathname.slice(this.fileManager.TEMPORARY_PREFIX.length);
+      this.openFile(filename, { tempPathname });
     }
   } else {
     var path = this.parsePathname(pathname);

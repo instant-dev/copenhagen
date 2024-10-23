@@ -184,6 +184,13 @@ CPHEditor.prototype.openFile = function (pathname, fileData) {
       this.fileTabs.populate(this.users, this.fileManager);
     }.bind(this), 1);
   } else {
+    if (!this.ws) {
+      fileData = fileData || (
+        this.fileManager.isOpen(pathname)
+          ? void 0
+          : { value: this.localFiles[pathname] }
+      );
+    }
     setTimeout(function () {
       var activeFile = this.fileManager.open(pathname, fileData);
       if (activeFile) {
@@ -234,6 +241,12 @@ CPHEditor.prototype.closeFile = function (pathname, unlink) {
       this.__sendToFileServer('client.filesystem.unlink', {pathname: pathname});
     } else {
       this.__sendToFileServer('client.filesystem.close', {pathname: pathname});
+    }
+  } else {
+    // Local file management
+    this.fileManager.files[pathname].modified = false;
+    if (this.fileManager.files[pathname].tempPathname) {
+      delete this.fileManager.files[pathname];
     }
   }
   var activeFile = unlink
@@ -318,20 +331,20 @@ CPHEditor.prototype.createFile = function (pathname, value, isDirectory) {
         }
       );
     } else {
-      let filename = pathname.slice(this.fileManager.TEMPORARY_PREFIX.length);
-      const ext = filename.split('.').pop();
-      const name = filename.split('.').slice(0, -1).join('.');
+      const ext = pathname.split('.').pop();
+      const name = pathname.split('.').slice(0, -1).join('.');
       let i = 1;
-      let tempname = filename;
-      while (this.fileManager.exists(tempname)) {
+      let filename = pathname;
+      while (this.fileManager.exists(filename)) {
         i++;
         if (ext === name) {
-          tempname = `${name}-${i}`;
+          filename = `${name}-${i}`;
         } else {
-          tempname = `${name}-${i}.${ext}`;
+          filename = `${name}-${i}.${ext}`;
         }
       }
-      this.openFile(tempname);
+      const tempPathname = pathname.slice(this.fileManager.TEMPORARY_PREFIX.length);
+      this.openFile(filename, { tempPathname });
     }
   } else {
     var path = this.parsePathname(pathname);
