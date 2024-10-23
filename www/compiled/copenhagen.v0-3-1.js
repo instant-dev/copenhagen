@@ -1688,7 +1688,7 @@ CPHEditor.prototype.selfActions = {
     if (!this.ws) {
       const file = ctrl.fileManager.activeFile;
       if (file) {
-        const modified = value !== file.value;
+        const modified = value !== ctrl.localFiles[file.pathname];
         ctrl.fileManager.files[file.pathname].modified = modified;
         // FIXME: Populate TreeView needs to be automatic from fileManager activity
         ctrl.treeView.populate(ctrl.users, ctrl.fileManager);
@@ -5041,6 +5041,7 @@ CPHEditor.prototype.createFile = function (pathname, value, isDirectory) {
         }
       );
     } else {
+      // Local file management
       const ext = pathname.split('.').pop();
       const name = pathname.split('.').slice(0, -1).join('.');
       let i = 1;
@@ -5054,6 +5055,7 @@ CPHEditor.prototype.createFile = function (pathname, value, isDirectory) {
         }
       }
       const tempPathname = pathname.slice(this.fileManager.TEMPORARY_PREFIX.length);
+      this.localFiles[filename] = value || '';
       this.openFile(filename, { tempPathname });
     }
   } else {
@@ -5090,6 +5092,11 @@ CPHEditor.prototype.createFile = function (pathname, value, isDirectory) {
             value: ''
           }
         );
+      } else {
+        // Local file management
+        if (!isDirectory) {
+          this.localFiles[pathname] = value || '';
+        }
       }
       if (!isDirectory) {
         this.openFile(pathname);
@@ -5122,9 +5129,19 @@ CPHEditor.prototype.copyFile = function (pathname, newPathname) {
           open: isTemp
         }
       );
+    } else {
+      // Local file management
+      if (!isDirectory) {
+        this.localFiles[newPathname] = this.localFiles[pathname];
+      }
     }
-    if (!isDirectory && !isTemp) {
-      this.openFile(newPathname);
+    if (!isDirectory) {
+      if (!isTemp) {
+        this.openFile(newPathname);
+      } else {
+        const tempPathname = newPathname.slice(this.fileManager.TEMPORARY_PREFIX.length);
+        this.openFile(newPathname, { tempPathname });
+      }
     }
   }.bind(this);
   if (newPathname) {
@@ -5179,6 +5196,7 @@ CPHEditor.prototype.moveFile = function (pathname, newPathname) {
         }
       );
     } else {
+      // Local file management
       this.fileManager.move(pathname, newPathname);
       this.dispatch('file.move', this, pathname, newPathname);
       // FIXME: Populate TreeView needs to be automatic from fileManager activity

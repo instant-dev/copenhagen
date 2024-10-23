@@ -546,7 +546,7 @@ CPHEditor.prototype.selfActions = {
     if (!this.ws) {
       const file = ctrl.fileManager.activeFile;
       if (file) {
-        const modified = value !== file.value;
+        const modified = value !== ctrl.localFiles[file.pathname];
         ctrl.fileManager.files[file.pathname].modified = modified;
         // FIXME: Populate TreeView needs to be automatic from fileManager activity
         ctrl.treeView.populate(ctrl.users, ctrl.fileManager);
