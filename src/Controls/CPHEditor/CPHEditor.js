@@ -25,9 +25,7 @@ function CPHEditor (app, cfg) {
       filename,
       cfg.value
         ? { value: cfg.value }
-        : this.localFiles[filename]
-          ? { value: this.localFiles[filename] }
-          : void 0
+        : this.localFiles[filename] || void 0
     );
   }
 
@@ -546,7 +544,7 @@ CPHEditor.prototype.selfActions = {
     if (!this.ws) {
       const file = ctrl.fileManager.activeFile;
       if (file) {
-        const modified = value !== ctrl.localFiles[file.pathname];
+        const modified = value !== (ctrl.localFiles[file.pathname] || { value: void 0 }).value;
         ctrl.fileManager.files[file.pathname].modified = modified;
         // FIXME: Populate TreeView needs to be automatic from fileManager activity
         ctrl.treeView.populate(ctrl.users, ctrl.fileManager);
@@ -1516,7 +1514,7 @@ CPHEditor.prototype.save = function (callback, force) {
         );
         this.fileManager.files[file.pathname].tempPathname = null;
       }
-      this.localFiles[file.pathname] = value;
+      this.localFiles[file.pathname] = { value };
       // FIXME: Populate TreeView needs to be automatic from fileManager activity
       this.treeView.populate(this.users, this.fileManager);
       this.fileTabs.populate(this.users, this.fileManager);

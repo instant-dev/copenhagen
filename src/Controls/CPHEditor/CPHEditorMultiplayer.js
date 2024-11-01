@@ -86,6 +86,7 @@ CPHEditor.prototype.uploadFiles = function (pathname) {
           this.control('find-replace').hide();
           fileList.forEach(function (fileData) {
             var activeFile = this.fileManager.open(fileData.pathname, fileData);
+            this.localFiles[activeFile.pathname] = { value: fileData.value, type: fileData.type };
             if (activeFile) {
               this.setReadOnly(activeFile.readonly);
               if (this.fileManager.isLoading(pathname)) {
@@ -188,7 +189,7 @@ CPHEditor.prototype.openFile = function (pathname, fileData) {
       fileData = fileData || (
         this.fileManager.isOpen(pathname)
           ? void 0
-          : { value: this.localFiles[pathname] }
+          : this.localFiles[pathname] || void 0
       );
     }
     setTimeout(function () {
@@ -345,7 +346,7 @@ CPHEditor.prototype.createFile = function (pathname, value, isDirectory) {
         }
       }
       const tempPathname = pathname.slice(this.fileManager.TEMPORARY_PREFIX.length);
-      this.localFiles[filename] = value || '';
+      this.localFiles[filename] = { value: value || '' };
       this.openFile(filename, { tempPathname });
     }
   } else {
@@ -385,7 +386,7 @@ CPHEditor.prototype.createFile = function (pathname, value, isDirectory) {
       } else {
         // Local file management
         if (!isDirectory) {
-          this.localFiles[pathname] = value || '';
+          this.localFiles[pathname] = { value: value || '' };
         }
       }
       if (!isDirectory) {

@@ -100,26 +100,23 @@ CPHTreeView.prototype.eventListeners = {
             '-',
             {
               icon: 'upload',
-              title: 'Upload Files',
-              disabled: !this.editor.ws,
+              title: 'Upload files',
               action: function (data) {
                 this.dispatch('upload', this, data.pathname);
               }.bind(this)
             },
-            '-',
             {
               icon: (fileInfo.isDirectory ? 'download' : 'download'),
               title: (fileInfo.isDirectory ? 'Download Folder' : 'Download File'),
-              disabled: !this.editor.ws,
+              hidden: !this.editor.ws,
               action: function (data) {
                 this.dispatch('download', this, data.pathname);
               }.bind(this)
             },
-            '-',
             {
               icon: 'download-cloud',
               title: 'Download Project',
-              disabled: !this.editor.ws,
+              hidden: !this.editor.ws,
               action: function (data) {
                 this.dispatch('download', this, '/');
               }.bind(this)

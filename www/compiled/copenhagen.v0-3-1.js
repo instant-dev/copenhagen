@@ -1167,9 +1167,7 @@ function CPHEditor (app, cfg) {
       filename,
       cfg.value
         ? { value: cfg.value }
-        : this.localFiles[filename]
-          ? { value: this.localFiles[filename] }
-          : void 0
+        : this.localFiles[filename] || void 0
     );
   }
 
@@ -1688,7 +1686,7 @@ CPHEditor.prototype.selfActions = {
     if (!this.ws) {
       const file = ctrl.fileManager.activeFile;
       if (file) {
-        const modified = value !== ctrl.localFiles[file.pathname];
+        const modified = value !== (ctrl.localFiles[file.pathname] || { value: void 0 }).value;
         ctrl.fileManager.files[file.pathname].modified = modified;
         // FIXME: Populate TreeView needs to be automatic from fileManager activity
         ctrl.treeView.populate(ctrl.users, ctrl.fileManager);
@@ -2658,7 +2656,7 @@ CPHEditor.prototype.save = function (callback, force) {
         );
         this.fileManager.files[file.pathname].tempPathname = null;
       }
-      this.localFiles[file.pathname] = value;
+      this.localFiles[file.pathname] = { value };
       // FIXME: Populate TreeView needs to be automatic from fileManager activity
       this.treeView.populate(this.users, this.fileManager);
       this.fileTabs.populate(this.users, this.fileManager);
@@ -4796,6 +4794,7 @@ CPHEditor.prototype.uploadFiles = function (pathname) {
           this.control('find-replace').hide();
           fileList.forEach(function (fileData) {
             var activeFile = this.fileManager.open(fileData.pathname, fileData);
+            this.localFiles[activeFile.pathname] = { value: fileData.value, type: fileData.type };
             if (activeFile) {
               this.setReadOnly(activeFile.readonly);
               if (this.fileManager.isLoading(pathname)) {
@@ -4898,7 +4897,7 @@ CPHEditor.prototype.openFile = function (pathname, fileData) {
       fileData = fileData || (
         this.fileManager.isOpen(pathname)
           ? void 0
-          : { value: this.localFiles[pathname] }
+          : this.localFiles[pathname] || void 0
       );
     }
     setTimeout(function () {
@@ -5055,7 +5054,7 @@ CPHEditor.prototype.createFile = function (pathname, value, isDirectory) {
         }
       }
       const tempPathname = pathname.slice(this.fileManager.TEMPORARY_PREFIX.length);
-      this.localFiles[filename] = value || '';
+      this.localFiles[filename] = { value: value || '' };
       this.openFile(filename, { tempPathname });
     }
   } else {
@@ -5095,7 +5094,7 @@ CPHEditor.prototype.createFile = function (pathname, value, isDirectory) {
       } else {
         // Local file management
         if (!isDirectory) {
-          this.localFiles[pathname] = value || '';
+          this.localFiles[pathname] = { value: value || '' };
         }
       }
       if (!isDirectory) {
@@ -8275,26 +8274,23 @@ CPHTreeView.prototype.eventListeners = {
             '-',
             {
               icon: 'upload',
-              title: 'Upload Files',
-              disabled: !this.editor.ws,
+              title: 'Upload files',
               action: function (data) {
                 this.dispatch('upload', this, data.pathname);
               }.bind(this)
             },
-            '-',
             {
               icon: (fileInfo.isDirectory ? 'download' : 'download'),
               title: (fileInfo.isDirectory ? 'Download Folder' : 'Download File'),
-              disabled: !this.editor.ws,
+              hidden: !this.editor.ws,
               action: function (data) {
                 this.dispatch('download', this, data.pathname);
               }.bind(this)
             },
-            '-',
             {
               icon: 'download-cloud',
               title: 'Download Project',
-              disabled: !this.editor.ws,
+              hidden: !this.editor.ws,
               action: function (data) {
                 this.dispatch('download', this, '/');
               }.bind(this)
